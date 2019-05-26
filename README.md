@@ -1,2 +1,3 @@
 # seng300
-term project and stuff
+Course management and stuff
+git will ignore any file with .datafile
