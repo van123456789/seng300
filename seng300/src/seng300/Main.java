@@ -14,7 +14,7 @@ public class Main {
 		//checker(combination);
 		
 		
-		Course aCourse = new Course("54585");
+		Course aCourse = new Course("58347");
 		System.out.println(aCourse.getCourseName());
 	}
 	

@@ -21,40 +21,19 @@ public class Course {
 		
 	}
 	
-	public Course(String course_id) {
-
-
-		
-		
-		while (true) {
-			try {
-				String aLine;
-				FileReader course = new FileReader("courselist.data");
-				course_reader = new BufferedReader(course);
-				aLine = course_reader.readLine();
-				
-				if (aLine == null) {
-					System.out.println("Cannot find the course");
-				}
-				else {
-					String[] temp = aLine.split(".");
-					System.out.println(temp.length);
-					if (temp[0].equals(course_id)) {
-						this.coursename = temp[1];
-						this.instructor = temp[2];
-						this.session = temp[3];
-						this.section = temp[4];
-					}
-				}
-			} 
-			catch (NullPointerException e) {
-				System.out.println("aaa");
-			} catch (IOException e) {
-				System.out.println("bbb");
+	public Course(String course_id) throws Exception {
+		String aLine;
+		FileReader course = new FileReader("courselist.data");
+		course_reader = new BufferedReader(course);
+		while ((aLine = course_reader.readLine()) != null) {
+			String[] temp = aLine.split("-");
+			if (temp[0].equals(course_id)) {
+				this.coursename = temp[1];
+				this.instructor = temp[2];
+				this.session = temp[3];
+				this.section = temp[4];
 			}
-			
 		}
-
 	}
 	
 	public String getCourseName() {
