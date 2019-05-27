@@ -8,10 +8,14 @@ import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) {
-		String combination;
-		combination = getInput();
-		checker(combination);
+	public static void main(String[] args) throws Exception {
+		//String combination;
+		//combination = getInput();
+		//checker(combination);
+		
+		
+		Course aCourse = new Course("54585");
+		System.out.println(aCourse.getCourseName());
 	}
 	
 	private static boolean checker(String combination) {

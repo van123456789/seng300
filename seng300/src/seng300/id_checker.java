@@ -41,9 +41,12 @@ public class id_checker {
 					toReturn = true;
 				}
 			}
+			
+			headdep_reader.close();
+			headdep.close();
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("Head Department File not found");
 		}
 		catch (IOException e) {
 			System.out.println("IO error");
@@ -63,9 +66,12 @@ public class id_checker {
 					toReturn = true;
 				}
 			}
+			
+			instructor_reader.close();
+			instructor.close();
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("Instructor File not found");
 		}
 		catch (IOException e) {
 			System.out.println("IO error");
@@ -85,9 +91,11 @@ public class id_checker {
 					toReturn = true;
 				}
 			}
+			student_reader.close();
+			student.close();
 		}
 		catch (FileNotFoundException e) {
-			System.out.println("File not found");
+			System.out.println("Student File not found");
 		}
 		catch (IOException e) {
 			System.out.println("IO error");
