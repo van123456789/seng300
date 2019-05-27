@@ -9,30 +9,73 @@ import java.util.*;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
-		//String combination;
-		//combination = getInput();
-		//checker(combination);
+		String combination;
+		combination = getInput();
+		int id_type = checker(combination);
+		if (id_type == 1) {
+			runAsStudent();
+		}
+		if (id_type == 2) {
+			runAsInstructor();
+		}
+		if (id_type == 3) {
+			runAsHeadDep();
+		}
 		
 		
-		Course aCourse = new Course("58347");
-		System.out.println(aCourse.getCourseName());
 	}
 	
-	private static boolean checker(String combination) {
-		boolean toReturn = false;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private static void runAsStudent() {
+		
+	}
+	private static void runAsInstructor() {
+		
+	}
+	private static void runAsHeadDep() {
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	private static int checker(String combination) {
+		int toReturn = -1;
 		id_checker checker = new id_checker(combination);
 		int id_type = checker.authenticate();
 		if (id_type == 1) {
 			System.out.println("Student found");
-			toReturn = true;
+			toReturn = 1;
 		}
 		if (id_type == 2) {
 			System.out.println("Instructor found");
-			toReturn = true;
+			toReturn = 2;
 		}
 		if (id_type == 3) {
 			System.out.println("Head Department found");
-			toReturn = true;
+			toReturn = 3;
 		}
 		if (id_type == -1) {
 			System.out.println("User not found");
@@ -52,7 +95,6 @@ public class Main {
 		catch (InputMismatchException e) {
 			System.out.println("Invalid input");
 		}
-		
 		return unique_combination;
 	}
 

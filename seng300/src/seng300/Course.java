@@ -34,6 +34,8 @@ public class Course {
 				this.section = temp[4];
 			}
 		}
+		course_reader.close();
+		course.close();
 	}
 	
 	public String getCourseName() {
