@@ -13,13 +13,13 @@ public class Main {
 		combination = getInput();
 		int id_type = checker(combination);
 		if (id_type == 1) {
-			runAsStudent();
+			runAsStudent(combination);
 		}
 		if (id_type == 2) {
-			runAsInstructor();
+			runAsInstructor(combination);
 		}
 		if (id_type == 3) {
-			runAsHeadDep();
+			runAsHeadDep(combination);
 		}
 		
 		
@@ -34,13 +34,14 @@ public class Main {
 	
 	
 	
-	private static void runAsStudent() {
+	private static void runAsStudent(String combination) {
+		Student aStudent = new Student(combination);
+		aStudent.run();
+	}
+	private static void runAsInstructor(String combination) {
 		
 	}
-	private static void runAsInstructor() {
-		
-	}
-	private static void runAsHeadDep() {
+	private static void runAsHeadDep(String combination) {
 		
 	}
 	
