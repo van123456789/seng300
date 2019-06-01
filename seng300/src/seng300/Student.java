@@ -39,7 +39,7 @@ public class Student extends User{
 				break;
 			}
 			if (user_choice.equals("3")) {
-				drop_current_term();
+				drop_term(EnvironmentConstant.getSession());
 				break;
 			}
 			if (user_choice.equals("4")) {
@@ -142,8 +142,115 @@ public class Student extends User{
 		}
 	}
 	
-	public void drop_current_term() {
+	public void drop_term(String aSession) {
+		List<Course> courses_to_drop = new ArrayList<>();
+		System.out.println("These are courses you signed up");
+		print_course_load(EnvironmentConstant.getSession());
+		drop_courses(courses_to_drop, aSession);
 		
+	}
+	
+	public void drop_courses(List<Course> courses_to_drop, String aSession) {
+		Scanner myScanner = new Scanner(System.in);
+		boolean notFinishedDropping = true;
+		int state = 0;
+		while (notFinishedDropping) {
+			if (state == 0) {
+				try {
+					System.out.println("Please enter the course you want to drop:");
+					System.out.println("Type exit to stop dropping courses");
+					String input = myScanner.nextLine();
+					
+					if (input.equals("exit")) {
+						state = 1;
+					}
+					else {
+						Course newCourse = new Course(input, aSession);
+						if (newCourse.getCourseName()!="") {
+							courses_to_drop.add(newCourse);
+							System.out.println("Current courses to drop:");
+							System.out.println(courses_to_drop);
+						}
+						else {
+							System.out.println("Course is invalid or not offered this session");
+						}
+					}
+					
+					
+				}
+				catch (Exception e){
+					System.out.println("Should not see me");
+				}
+				
+			}
+			else {
+				System.out.println("These are courses you are dropping:");
+				System.out.println(courses_to_drop);
+				System.out.println("Type ok to confirm");
+				System.out.println("Type remove to remove specific course");
+				String input = myScanner.nextLine();
+				if (input.equals("ok")) {
+					remove_from_database(courses_to_drop);
+					notFinishedDropping = false;
+				}
+				if (input.equals("remove")) {
+					System.out.println("Please enter the index for course you want to remove");
+					try {
+						String index = myScanner.nextLine();
+						if (0 <= Integer.parseInt(index) && Integer.parseInt(index) < courses_to_drop.size()) {
+							courses_to_drop.remove(Integer.parseInt(index));
+							System.out.println("Course removed");
+							state = 0;
+						}
+						else {
+							System.out.println("Out of boundary");
+						}
+					}
+					catch (Exception e) {
+						System.out.println("Invalid input");
+					}
+				}
+			}
+			
+		}
+	}
+	
+	
+	public void remove_from_database(List<Course> courses_to_drop) {
+		File inputFile = new File("student_courseload.data");
+		File tempFile = new File("temp.data");
+		List<String> lines_to_remove = new ArrayList<>();
+		for (Course c : courses_to_drop) {
+			lines_to_remove.add(super.getID() + "-" + c.getCourseID());
+		}
+		
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			String currentLine;
+			String line_to_remove = "1351891440-83163";
+
+			while((currentLine = reader.readLine()) != null) {
+			    String trimmedLine = currentLine.trim();
+			    for (String line : lines_to_remove) {
+			    	if (currentLine.contentEquals(line)) {
+			    		continue;
+			    	}
+			    	else {
+			    		writer.write(currentLine + System.getProperty("line.separator"));
+			    	}
+			    }
+
+			}
+			writer.close(); 
+			reader.close();
+		} 
+		catch (Exception e) {
+			System.out.println("Error in remove_from_database");
+		}
+		boolean isDeleted = inputFile.delete();
+		boolean successful = tempFile.renameTo(inputFile);
 	}
 	
 	public void drop_past_term() {

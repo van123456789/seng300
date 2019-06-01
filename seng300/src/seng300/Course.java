@@ -79,6 +79,28 @@ public class Course {
 		return this.course_id;
 	}
 	
+	public static boolean isValidCourse(String aCourse, String aSession) {
+		boolean result = false;
+		try {
+			String aLine;
+			FileReader course = new FileReader("courselist.data");
+			course_reader = new BufferedReader(course);
+			while ((aLine = course_reader.readLine()) != null) {
+				String[] temp = aLine.split("-");
+				if (temp[3].equals(aSession) && temp[1].equals(aCourse)) {
+					result = true;
+				}
+			}
+			course_reader.close();
+			course.close();
+		}
+		catch (Exception e) {
+			System.out.println("Error in isValid");
+		}
+		
+		return result;
+	}
+	
 	public static boolean isValidSession(String aSession) {
 		boolean result = false;
 		try {
