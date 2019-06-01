@@ -21,8 +21,8 @@ public class Student extends User{
 	
 	public void run() {
 		System.out.println("Please select your option:");
-		System.out.println("1 - to view available courses for this session");
-		System.out.println("2 - to view available courses for future session");
+		System.out.println("1 - to register courses for this session");
+		System.out.println("2 - to register courses for future session");
 		System.out.println("3 - to drop courses for this session");
 		System.out.println("4 - to drop courses for future session");
 		
@@ -31,7 +31,7 @@ public class Student extends User{
 		while (true) {
 			user_choice = myScanner.nextLine();
 			if (user_choice.equals("1")) {
-				register_current_term();
+				register_courses_for_term(EnvironmentConstant.getSession());
 				break;
 			}
 			if (user_choice.equals("2")) {
@@ -54,16 +54,17 @@ public class Student extends User{
 		}
 	}
 	
-	public void register_current_term() {
+	public void register_courses_for_term(String aSession) {
 		List<Course> courses_to_enrol = new ArrayList<>();
-		System.out.println("These are courses you signed up for the current term");
-		print_current_load();
-		register_courses(courses_to_enrol);
+		System.out.println("These are courses you signed up" );
+		print_course_load(aSession);
+		register_courses(courses_to_enrol, aSession);
+		print_course_load(aSession);
 		
 		
 	}
 	
-	public  void register_courses(List<Course> courses_to_enrol) {
+	public  void register_courses(List<Course> courses_to_enrol, String aSession) {
 		Scanner myScanner = new Scanner(System.in);
 		boolean notFinishedAdding = true;
 		int state = 0;
@@ -78,7 +79,7 @@ public class Student extends User{
 						state = 1;
 					}
 					else {
-						Course newCourse = new Course(input, EnvironmentConstant.getSession());
+						Course newCourse = new Course(input, aSession);
 						if (newCourse.getCourseName()!="") {
 							courses_to_enrol.add(newCourse);
 							System.out.println("Current courses to register:");
@@ -133,7 +134,12 @@ public class Student extends User{
 	}
 	
 	public void register_future_term() {
-		
+		Scanner myScanner = new Scanner(System.in);
+		System.out.println("Please enter term you want to register in:");
+		String aSession = myScanner.nextLine();
+		if (Course.isValidSession(aSession)) {
+			register_courses_for_term(aSession);
+		}
 	}
 	
 	public void drop_current_term() {
@@ -144,13 +150,14 @@ public class Student extends User{
 		
 	}
 	
-	public void print_current_load() {
+	public void print_course_load(String aSession) {
 		String temp;
+
 		try {
 			FileReader courseload = new FileReader("student_courseload.data");
 			BufferedReader courseload_reader = new BufferedReader(courseload);
 			
-			
+
 			List<String> courses_in_code = new ArrayList<>();
 			while ((temp = courseload_reader.readLine()) != null) {
 				String[] splitedLine = temp.split("-");
@@ -159,15 +166,16 @@ public class Student extends User{
 				}
 			}
 			
-
-			
 			
 			List<String> courses = new ArrayList<>();
 			
+
+			
 			for (String course : courses_in_code) {
 				Course aCourse = new Course(course);
-				String coursename = aCourse.getCourseName();
-				courses.add(coursename);
+				if (aCourse.getSession().equals(aSession)) {
+					courses.add(aCourse.getCourseName());
+				}
 				
 			}
 			System.out.println(courses);
@@ -181,7 +189,7 @@ public class Student extends User{
 		catch (IOException e) {
 			System.out.println("IO error");
 		} catch (Exception e) {
-			System.out.print("Error in Course class");
+			System.out.println("Error in Course class");
 			
 		}
 	}
@@ -208,6 +216,7 @@ public class Student extends User{
 			System.out.println("IO error in add_to_database");
 		}
 	}
+	
 	
 	
 	public static void main(String[] args) {

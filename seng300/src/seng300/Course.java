@@ -12,7 +12,7 @@ public class Course {
 	private String instructor = "";
 	private String session = "";
 	private String section = "";
-	private BufferedReader course_reader;
+	private static BufferedReader course_reader;
 	
 	public Course(String course_id, String coursename, String instructor, String session, String section) {
 		this.course_id = course_id;
@@ -79,8 +79,30 @@ public class Course {
 		return this.course_id;
 	}
 	
-	public static void main(String[] args) throws Exception {
+	public static boolean isValidSession(String aSession) {
+		boolean result = false;
+		try {
+			String aLine;
+			FileReader course = new FileReader("courselist.data");
+			course_reader = new BufferedReader(course);
+			while ((aLine = course_reader.readLine()) != null) {
+				String[] temp = aLine.split("-");
+				if (temp[3].equals(aSession)) {
+					result = true;
+				}
+			}
+			course_reader.close();
+			course.close();
+		}
+		catch (Exception e) {
+			System.out.println("Error in isValid");
+		}
 		
+		return result;
+		
+	}
+	
+	public static void main(String[] args) throws Exception {
 	}
 	
 }
