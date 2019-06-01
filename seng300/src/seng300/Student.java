@@ -54,36 +54,76 @@ public class Student extends User{
 		List<Course> courses_to_enrol = new ArrayList<>();
 		System.out.println("These are courses you signed up for the current term");
 		print_current_load();
-		System.out.println("Please enter the course you want to enrol in this semester");
-		System.out.println("Type exit to finish enroling");
-	
 		register_courses(courses_to_enrol);
-		System.out.println(courses_to_enrol.size());
-		System.out.println(courses_to_enrol);
+		
+		
 	}
 	
 	public  void register_courses(List<Course> courses_to_enrol) {
 		Scanner myScanner = new Scanner(System.in);
-		while (true) {
-			String course = myScanner.nextLine();
-			if (course.equals("exit")) {
-				break;
+		boolean notFinishedAdding = true;
+		int state = 0;
+		while (notFinishedAdding) {
+			if (state == 0) {
+				try {
+					System.out.println("Please enter the course you want to register:");
+					System.out.println("Type exit to stop adding courses");
+					String input = myScanner.nextLine();
+					
+					if (input.equals("exit")) {
+						state = 1;
+					}
+					else {
+						Course newCourse = new Course(input, EnvironmentConstant.getSession());
+						if (newCourse.getCourseName()!="") {
+							courses_to_enrol.add(newCourse);
+							System.out.println("Current courses to register:");
+							System.out.println(courses_to_enrol);
+						}
+						else {
+							System.out.println("Course is invalid or not offered this session");
+						}
+					}
+					
+					
+				}
+				catch (Exception e){
+					System.out.println("Should not see me");
+				}
+				
 			}
 			else {
-				try {
-					Course newCourse = new Course(course, EnvironmentConstant.getSession());
-					courses_to_enrol.add(newCourse);
-
-					System.out.println("Courses to enroll:");
-					System.out.println(courses_to_enrol);
-					
-				} 
-				catch (Exception e) {
-					System.out.println("Error in enroling");
+				System.out.println("These are courses you are registering:");
+				System.out.println(courses_to_enrol);
+				System.out.println("Type ok to confirm");
+				System.out.println("Type remove to remove specific course");
+				String input = myScanner.nextLine();
+				if (input.equals("ok")) {
+					add_to_database(courses_to_enrol);
+					notFinishedAdding = false;
+				}
+				if (input.equals("remove")) {
+					System.out.println("Please enter the index for course you want to remove");
+					try {
+						String index = myScanner.nextLine();
+						if (0 <= Integer.parseInt(index) && Integer.parseInt(index) < courses_to_enrol.size()) {
+							courses_to_enrol.remove(Integer.parseInt(index));
+							System.out.println("Course removed");
+							state = 0;
+						}
+						else {
+							System.out.println("Out of boundary");
+						}
+					}
+					catch (Exception e) {
+						System.out.println("Invalid input");
+					}
 				}
 			}
 			
 		}
+
+		
 		
 		
 	}
@@ -140,6 +180,11 @@ public class Student extends User{
 			System.out.print("Error in Course class");
 			
 		}
+	}
+	
+	
+	public void add_to_database(List<Course> courses_to_enrol) {
+		System.out.println("not implemented");
 	}
 	
 	
