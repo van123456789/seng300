@@ -7,13 +7,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Course {
+	private String course_id = "";
 	private String coursename = "";
 	private String instructor = "";
 	private String session = "";
 	private String section = "";
 	private BufferedReader course_reader;
 	
-	public Course(String coursename, String instructor, String session, String section) {
+	public Course(String course_id, String coursename, String instructor, String session, String section) {
+		this.course_id = course_id;
 		this.coursename = coursename;
 		this.instructor = instructor;
 		this.session = session;
@@ -22,6 +24,7 @@ public class Course {
 	}
 	
 	public Course(String course_id) throws Exception {
+		this.course_id = course_id;
 		String aLine;
 		FileReader course = new FileReader("courselist.data");
 		course_reader = new BufferedReader(course);
@@ -45,6 +48,7 @@ public class Course {
 		while ((aLine = course_reader.readLine()) != null) {
 			String[] temp = aLine.split("-");
 			if (temp[1].equals(coursename) && temp[3].equals(session)) {
+				this.course_id = temp[0];
 				this.coursename = temp[1];
 				this.instructor = temp[2];
 				this.session = temp[3];
@@ -71,10 +75,12 @@ public class Course {
 	public String getSection() {
 		return this.section;
 	}
+	public String getCourseID() {
+		return this.course_id;
+	}
 	
 	public static void main(String[] args) throws Exception {
-		Course aCourse = new Course("54585");
-		System.out.println(aCourse);
+		
 	}
 	
 }

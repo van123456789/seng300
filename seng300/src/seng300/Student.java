@@ -1,9 +1,13 @@
 package seng300;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -184,7 +188,25 @@ public class Student extends User{
 	
 	
 	public void add_to_database(List<Course> courses_to_enrol) {
-		System.out.println("not implemented");
+		try {
+			File file = new File("student_courseload.data");
+			FileWriter fr = new FileWriter(file, true);
+			BufferedWriter br = new BufferedWriter(fr);
+			PrintWriter pr = new PrintWriter(br);
+			for (Course c : courses_to_enrol) {
+				pr.println(super.getID() + "-" + c.getCourseID());
+			}
+			pr.close();
+			br.close();
+			fr.close();
+			System.out.println("Registered successfully");
+		} 
+		catch (FileNotFoundException e) {
+			System.out.println("Cannot find file stuent_courseload.data");
+		} 
+		catch (IOException e) {
+			System.out.println("IO error in add_to_database");
+		}
 	}
 	
 	
