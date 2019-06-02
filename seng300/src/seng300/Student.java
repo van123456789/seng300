@@ -43,7 +43,7 @@ public class Student extends User{
 				break;
 			}
 			if (user_choice.equals("4")) {
-				drop_past_term();
+				drop_future_term();
 				break;
 			}
 			
@@ -145,8 +145,10 @@ public class Student extends User{
 	public void drop_term(String aSession) {
 		List<Course> courses_to_drop = new ArrayList<>();
 		System.out.println("These are courses you signed up");
-		print_course_load(EnvironmentConstant.getSession());
+		print_course_load(aSession);
 		drop_courses(courses_to_drop, aSession);
+		System.out.println("Theses are courses left that you signed up");
+		print_course_load(aSession);
 		
 	}
 	
@@ -253,8 +255,20 @@ public class Student extends User{
 		boolean successful = tempFile.renameTo(inputFile);
 	}
 	
-	public void drop_past_term() {
-		
+	public void drop_future_term() {
+		System.out.println("Enter term you want to drop:");
+		Scanner myScanner = new Scanner(System.in);
+		boolean isValid = false;
+		while (!isValid) {
+			String aSession = myScanner.nextLine();
+			if (Course.isValidSession(aSession)) {
+				drop_term(aSession);
+				isValid = true;
+			}
+			else {
+				System.out.println("Error input");
+			}
+		}
 	}
 	
 	public void print_course_load(String aSession) {
