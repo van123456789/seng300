@@ -1,0 +1,37 @@
+[ {
+  "course_id" : "",
+  "coursename" : "yiiiiiikes",
+  "instructor" : "asdf",
+  "session" : "asdf",
+  "section" : "sadf",
+  "enrolled_student" : null,
+  "courseName" : "yiiiiiikes",
+  "courseID" : ""
+}, {
+  "course_id" : "",
+  "coursename" : "2",
+  "instructor" : "3",
+  "session" : "4",
+  "section" : "5",
+  "enrolled_student" : null,
+  "courseName" : "2",
+  "courseID" : ""
+}, {
+  "course_id" : "",
+  "coursename" : "123",
+  "instructor" : "123",
+  "session" : "123",
+  "section" : "123",
+  "enrolled_student" : null,
+  "courseName" : "123",
+  "courseID" : ""
+}, {
+  "course_id" : "",
+  "coursename" : "123",
+  "instructor" : "4",
+  "session" : "5",
+  "section" : "6",
+  "enrolled_student" : null,
+  "courseName" : "123",
+  "courseID" : ""
+} ]
