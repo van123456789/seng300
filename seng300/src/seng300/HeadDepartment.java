@@ -12,13 +12,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-public class HeadDepartment extends User{
+public class HeadDepartment extends User
+{
 	static Scanner sc;
 	static String option = "";
 	
-	public HeadDepartment(String id) {
+	public HeadDepartment(String id) 
+	{
 		super(id);
-		run();
 	}
 
 	public static void run () 
@@ -28,7 +29,7 @@ public class HeadDepartment extends User{
 		System.out.println("0. show courses");
 		System.out.println("1. add course");
 		System.out.println("2. assign instructor");
-		System.out.println("-1. quit");
+		System.out.println("q. quit");
 
 		while (true)
 		{
@@ -36,7 +37,7 @@ public class HeadDepartment extends User{
 			
 			switch(option) 
 			{
-				case "-1":
+				case "q":
 					System.exit(0);
 					break;
 				case "0":
@@ -46,6 +47,9 @@ public class HeadDepartment extends User{
 					add_course();
 					break;
 				case "2":
+					assign_instructor();
+					break;
+				case "3":
 					break;
 				default:
 					System.out.println("choose a valid option");
@@ -53,7 +57,8 @@ public class HeadDepartment extends User{
 			}
 		}	
 	}
-
+	
+	// shows courses already present in the system
 	public static void show_courses()
 	{
 		try 
@@ -79,6 +84,7 @@ public class HeadDepartment extends User{
 
 	}
 	
+	// to add user specified course to the system, does some basic checkings
 	public static void add_course()
 	{
 		// ObjectMapper is for serializing/deserializing json objects
@@ -90,6 +96,7 @@ public class HeadDepartment extends User{
 		String instructor = ""; 
 		String session = ""; 
 		String section = "";
+		Course c;
 
 		// check for courselist.json
 		try 
@@ -111,7 +118,7 @@ public class HeadDepartment extends User{
 			// ask head department for specification of the course
 			System.out.println("enter course code");
 			course_code = sc.nextLine();
-
+			
 			System.out.println("enter course name");
 			course_name = sc.nextLine();
 
@@ -124,8 +131,12 @@ public class HeadDepartment extends User{
 			System.out.println("enter section");
 			section = sc.nextLine();
 
+			// check if user specified course already exists in the system
+			c = new Course(course_code, course_name, instructor, session, section);
+			if (!course_exists(c, course_list)) 
+				course_list.add(c);
+
 			// add course to database
-			course_list.add(new Course(course_code, course_name, instructor, session, section));
 			objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, course_list);
 		} 
 		catch (Exception e) 
@@ -133,7 +144,69 @@ public class HeadDepartment extends User{
 			e.printStackTrace();
 		}		
 	}
-		
+
+	// compares and checks if given course already exists in given course_list (in the db)
+	public static boolean course_exists(Course c, ArrayList<Course> course_list) 
+	{
+		boolean course_exists = false;
+
+		for (Course course : course_list) 
+		{
+			if (course.getCourse_id().equals(c.getCourse_id())) 
+			{
+				System.out.println("course is already in the system");
+				course_exists = true;
+				break;				
+			}
+			if (course.getCoursename().equals(c.getCoursename()))
+			{
+				System.out.println("course is already in the system");
+				course_exists = true;
+				break;
+			}	
+		}
+		return course_exists;
+	}
+	
+	// add instructor to the course
+	// WIP, need to restructure instructor class first i think
+	public static void assign_instructor() 
+	{	// TODO assign instructor to a course
+		ObjectMapper objmapper = new ObjectMapper();
+		ArrayList<Course> course_list = new ArrayList<Course>();
+		try 
+		{
+			File temp = new File("courselist.json");
+			
+			// show which course needs an instructor
+			if (temp.createNewFile()) 
+				System.out.println("no courses exists in the system yet");
+			else 
+			{
+				System.out.println("currently, these course(s) needs an instructor: ");
+				course_list = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
+			}			
+			// display which courses needs attnetion
+			instructor_needed(course_list);
+			
+			
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public static void instructor_needed(ArrayList<Course> cs) 
+	{
+		String temp_str = "";
+		for (Course c : cs)
+		{
+			if (c.getInstructor().equals(""))
+				temp_str = temp_str + " " + c.getCoursename();
+		}	
+		System.out.println(temp_str);		
+	}
+	
 	public static void main(String [] args) 
 	{
 		run();

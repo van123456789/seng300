@@ -18,7 +18,8 @@ public class Instructor extends User
 	private Scanner sc;
 	private String user_choice = "";
 	
-	public Instructor(String id) {
+	public Instructor(String id) 
+	{
 		super(id);
 	}
 
@@ -45,7 +46,6 @@ public class Instructor extends User
 			else {
 				System.out.println("Incorrect response");
 			}
-
 		}
-	}	
+	}		
 }

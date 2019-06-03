@@ -19,4 +19,11 @@
   "session" : "",
   "section" : "",
   "enrolled_student" : null
+}, {
+  "course_id" : "8392018",
+  "coursename" : "MATH 271",
+  "instructor" : "",
+  "session" : "",
+  "section" : "",
+  "enrolled_student" : null
 } ]
