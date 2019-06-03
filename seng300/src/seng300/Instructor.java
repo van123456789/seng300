@@ -18,10 +18,21 @@ public class Instructor extends User
 	private Scanner sc;
 	private String user_choice = "";
 	
-	public Instructor(String id) 
+	
+	public Instructor() 
 	{
-		super(id);
+		// TODO
+		// get the user db, and create instance correlating to its id
 	}
+
+	public Instructor (String id, String privilege, String fn, String ln)
+	{
+		this.id = id;
+		this.privilege = privilege;
+		this.firstname = fn;
+		this.lastname = ln;
+	}
+
 
 	public void run() 
 	{

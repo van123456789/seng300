@@ -1,0 +1,16 @@
+[ {
+  "id" : "jonjon",
+  "privilege" : "1",
+  "fn" : "jon",
+  "ln" : "jon"
+}, {
+  "id" : "astudent",
+  "privilege" : "3",
+  "fn" : "kim",
+  "ln" : "possible"
+}, {
+  "id" : "aninstructor",
+  "privilege" : "2",
+  "fn" : "ron",
+  "ln" : "ron"
+} ]

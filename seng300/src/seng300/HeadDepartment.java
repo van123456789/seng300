@@ -17,11 +17,20 @@ public class HeadDepartment extends User
 	static Scanner sc;
 	static String option = "";
 	
-	public HeadDepartment(String id) 
+	public HeadDepartment() 
 	{
-		super(id);
+		// TODO
+		// get userbase, instantiate it
+		
 	}
-
+	public HeadDepartment (String id, String privilege, String fn, String ln)
+	{
+		this.id = id;
+		this.privilege = privilege;
+		this.firstname = fn;
+		this.lastname = ln;
+	}
+	
 	public static void run () 
 	{
 		sc = new Scanner(System.in);
