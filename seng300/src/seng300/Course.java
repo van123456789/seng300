@@ -23,10 +23,10 @@ public class Course {
 		this.coursename = coursename;
 		this.instructor = instructor;
 		this.session = session;
-		this.section = section;	
+		this.section = section;
+		this.enrolled_student = null;
 	}
 	
-
 	// getter, setters
 	public String getCourse_id() {
 		return course_id;
@@ -55,9 +55,6 @@ public class Course {
 	public void setSection(String section) {
 		this.section = section;
 	}
-	public String getCourseName() {
-		return this.coursename;
-	}
 	public String getInstructor() {
 		return this.instructor;
 	}
@@ -66,9 +63,6 @@ public class Course {
 	}
 	public String getSection() {
 		return this.section;
-	}
-	public String getCourseID() {
-		return this.course_id;
 	}
 
 	
