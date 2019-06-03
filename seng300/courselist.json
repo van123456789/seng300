@@ -12,4 +12,11 @@
   "session" : "",
   "section" : "",
   "enrolled_student" : null
+}, {
+  "course_id" : "sdfsdfsdf",
+  "coursename" : "CPSC 313",
+  "instructor" : "",
+  "session" : "",
+  "section" : "",
+  "enrolled_student" : null
 } ]

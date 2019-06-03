@@ -28,7 +28,7 @@ public class HeadDepartment extends User{
 		System.out.println("0. show courses");
 		System.out.println("1. add course");
 		System.out.println("2. assign instructor");
-		System.out.println("3. quit");
+		System.out.println("-1. quit");
 
 		while (true)
 		{
@@ -36,6 +36,9 @@ public class HeadDepartment extends User{
 			
 			switch(option) 
 			{
+				case "-1":
+					System.exit(0);
+					break;
 				case "0":
 					show_courses();
 					break;
@@ -43,9 +46,6 @@ public class HeadDepartment extends User{
 					add_course();
 					break;
 				case "2":
-					break;
-				case "3":
-					System.exit(0);
 					break;
 				default:
 					System.out.println("choose a valid option");
@@ -79,61 +79,61 @@ public class HeadDepartment extends User{
 
 	}
 	
-
 	public static void add_course()
 	{
+		// ObjectMapper is for serializing/deserializing json objects
+		ObjectMapper objmapper = new ObjectMapper();
+		ArrayList<Course> course_list = new ArrayList<Course>();
+
 		String course_code = "";
 		String course_name = ""; 
 		String instructor = ""; 
 		String session = ""; 
 		String section = "";
 
-		System.out.println("enter course code");
-		course_code = sc.nextLine();
-
-		System.out.println("enter course name");
-		course_name = sc.nextLine();
-
-		System.out.println("enter instructor");
-		instructor = sc.nextLine();
-
-		System.out.println("enter session");
-		session = sc.nextLine();
-
-		System.out.println("enter section");
-		section = sc.nextLine();
-				
-		Course c = new Course(course_code, course_name, instructor, session, section);
-
-		ObjectMapper objmapper = new ObjectMapper();
-		ArrayList<Course> course_list = new ArrayList<Course>();
-
 		// check for courselist.json
-		File temp = new File("courselist.json");
 		try 
-		{			
+		{	
+			File temp = new File("courselist.json");
+			
 			if (temp.createNewFile())
 			{
 				System.out.println("file is created");
 				System.out.println("adding course..");
-				course_list.add(c);
-				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, course_list);
 			}	
 			else 
 			{
 				// courselist.json is already present in the system
 				// create the course_list
-				course_list = objmapper.readValue(temp, ArrayList.class);
-				course_list.add(c);
-				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, course_list);
+				course_list = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
 			}
+
+			// ask head department for specification of the course
+			System.out.println("enter course code");
+			course_code = sc.nextLine();
+
+			System.out.println("enter course name");
+			course_name = sc.nextLine();
+
+			System.out.println("enter instructor");
+			instructor = sc.nextLine();
+
+			System.out.println("enter session");
+			session = sc.nextLine();
+
+			System.out.println("enter section");
+			section = sc.nextLine();
+
+			// add course to database
+			course_list.add(new Course(course_code, course_name, instructor, session, section));
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, course_list);
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
 		}		
 	}
-	
+		
 	public static void main(String [] args) 
 	{
 		run();
