@@ -5,4 +5,18 @@
   "enrolled" : null,
   "fn" : "CPSC",
   "ln" : "MASTER"
+}, {
+  "id" : "studentA",
+  "privilege" : "3",
+  "teaching" : null,
+  "enrolled" : [ ],
+  "fn" : "c",
+  "ln" : "l"
+}, {
+  "id" : "InstructorA",
+  "privilege" : "2",
+  "teaching" : [ ],
+  "enrolled" : null,
+  "fn" : "i",
+  "ln" : "a"
 } ]

@@ -13,16 +13,19 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
+	ObjectMapper objmapper = new ObjectMapper();
 	
 	// probably add string id as parameter, so i can get all the information i need when i start the class
-	public Student () 
+	public Student (String id) 
 	{
 		//TODO
 		// get userbase, and find matching id, and create an instance of it
-		run();
+		run(id);
 	}
 	
 	
@@ -45,7 +48,7 @@ public class Student extends User
 	}
 
 
-	public void run() 
+	public void run(String id) 
 	{
 		System.out.println("Please select your option:");
 		System.out.println("1 - to register courses for this session");
@@ -356,10 +359,10 @@ public class Student extends User
 	}
 	
 	
-	
+/*	
 	public static void main(String[] args) {
 		Student aStudent = new Student("1351891440");
 		aStudent.run();
 	}
-
+*/
 }

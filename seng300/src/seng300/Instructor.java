@@ -18,11 +18,11 @@ public class Instructor extends User
 	private Scanner sc;
 	private String user_choice = "";
 	
-	public Instructor() 
+	public Instructor(String id) 
 	{
 		// TODO
 		// get the user db, and create instance correlating to its id
-		run();
+		run(id);
 	}
 
 	public Instructor (String id, String privilege, String fn, String ln)
@@ -35,8 +35,9 @@ public class Instructor extends User
 	}
 
 
-	public void run() 
+	public void run(String id) 
 	{
+		
 		System.out.println("Please select your option:");
 		System.out.println("1 - request to teach a course");
 		System.out.println("2 - request to remove a course");

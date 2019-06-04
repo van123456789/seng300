@@ -19,9 +19,9 @@ public class HeadDepartment extends User
 	static Scanner sc;
 	static String option = "";
 	
-	public HeadDepartment() 
+	public HeadDepartment(String id) 
 	{
-		run();
+		run(id);
 	}
 	
 	public HeadDepartment (String id, String privilege, String fn, String ln)
@@ -32,7 +32,7 @@ public class HeadDepartment extends User
 		this.lastname = ln;
 	}
 	
-	public static void run () 
+	public static void run (String id) 
 	{
 		sc = new Scanner(System.in);
 
@@ -255,10 +255,5 @@ public class HeadDepartment extends User
 				temp_str = temp_str + " " + c.getCoursename();
 		}	
 		System.out.println(temp_str);		
-	}
-	
-	public static void main(String [] args) 
-	{
-		run();
 	}
 }

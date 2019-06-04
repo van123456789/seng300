@@ -1,22 +1,8 @@
 [ {
-  "course_id" : "123123",
-  "coursename" : "CPSC 231",
-  "instructor" : "",
-  "session" : "",
-  "section" : "",
-  "enrolled_student" : null
-}, {
-  "course_id" : "123857",
+  "course_id" : "123456",
   "coursename" : "CPSC 271",
   "instructor" : "",
   "session" : "",
   "section" : "",
-  "enrolled_student" : null
-}, {
-  "course_id" : "sdfsdfsdf",
-  "coursename" : "CPSC 313",
-  "instructor" : "",
-  "session" : "",
-  "section" : "",
-  "enrolled_student" : null
+  "enrolled_student" : [ ]
 } ]

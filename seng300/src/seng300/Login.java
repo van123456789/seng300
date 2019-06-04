@@ -39,13 +39,13 @@ public class Login
 				if (u.getId().equals(id))
 				{
 					if (u.getPrivilege().equals("1"))
-						new HeadDepartment();	// essentially this is a new session for the head department
+						new HeadDepartment(id);	// create a new session for the department head level user
 					
 					if (u.getPrivilege().equals("2"))
-						new Instructor();		// essentially this is a new session for the instructor
+						new Instructor(id);		// create a new session for the instructor level user
 					
 					if (u.getPrivilege().equals("3"))
-						new Student();			// ...
+						new Student(id);			// create a new session for the student level user
 				}
 			}
 		}

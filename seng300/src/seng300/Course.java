@@ -5,15 +5,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Course {
-	private String course_id = "";
-	private String coursename = "";
-	private String instructor = "";
-	private String session = "";
-	private String section = "";
-	private List<Student> enrolled_student;
+	protected String course_id = "";
+	protected String coursename = "";
+	protected String instructor = "";
+	protected String session = "";
+	protected String section = "";
+	protected ArrayList<Student> enrolled_student;
 		
 	public Course() {};
 	
@@ -24,7 +25,7 @@ public class Course {
 		this.instructor = instructor;
 		this.session = session;
 		this.section = section;
-		this.enrolled_student = null;
+		this.enrolled_student = new ArrayList<Student>();
 	}
 	
 	// getter, setters
@@ -40,10 +41,10 @@ public class Course {
 	public void setCoursename(String coursename) {
 		this.coursename = coursename;
 	}
-	public List<Student> getEnrolled_student() {
+	public ArrayList<Student> getEnrolled_student() {
 		return enrolled_student;
 	}
-	public void setEnrolled_student(List<Student> enrolled_student) {
+	public void setEnrolled_student(ArrayList<Student> enrolled_student) {
 		this.enrolled_student = enrolled_student;
 	}
 	public void setInstructor(String instructor) {
