@@ -22,6 +22,7 @@ public class Student extends User
 	{
 		//TODO
 		// get userbase, and find matching id, and create an instance of it
+		run();
 	}
 	
 	public Student (String id, String privilege, String fn, String ln)

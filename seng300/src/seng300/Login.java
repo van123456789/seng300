@@ -29,23 +29,23 @@ public class Login
 			else 
 				userlist = objmapper.readValue(temp,  new TypeReference<ArrayList<User>>() {});
 
-			// simple authentication
+			// simple authentication using username
+			// TODO implement password authentication
 			System.out.print("username: ");
-			String id = sc.nextLine();
-
+			String id = sc.nextLine();			
 			for (User u : userlist)
 			{
 //				System.out.println(u.getId().equals(id));
 				if (u.getId().equals(id))
 				{
 					if (u.getPrivilege().equals("1"))
-						new HeadDepartment();
+						new HeadDepartment();	// essentially this is a new session for the head department
 					
 					if (u.getPrivilege().equals("2"))
-						new Instructor();
+						new Instructor();		// essentially this is a new session for the instructor
 					
 					if (u.getPrivilege().equals("3"))
-						new Student();
+						new Student();			// ...
 				}
 			}
 		}

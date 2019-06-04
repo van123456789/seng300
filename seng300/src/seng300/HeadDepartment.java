@@ -11,6 +11,8 @@ import javax.swing.event.ListSelectionEvent;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class HeadDepartment extends User
 {
@@ -19,9 +21,7 @@ public class HeadDepartment extends User
 	
 	public HeadDepartment() 
 	{
-		// TODO
-		// get userbase, instantiate it
-		
+		run();
 	}
 	
 	public HeadDepartment (String id, String privilege, String fn, String ln)
@@ -39,6 +39,7 @@ public class HeadDepartment extends User
 		System.out.println("0. show courses");
 		System.out.println("1. add course");
 		System.out.println("2. assign instructor");
+		System.out.println("3. remove course");
 		System.out.println("q. quit");
 
 		while (true)
@@ -60,6 +61,7 @@ public class HeadDepartment extends User
 					assign_instructor();
 					break;
 				case "3":
+					remove_course();
 					break;
 				default:
 					System.out.println("choose a valid option");
@@ -178,6 +180,42 @@ public class HeadDepartment extends User
 		return course_exists;
 	}
 	
+	public static void remove_course() 
+	{
+		ObjectMapper objmapper = new ObjectMapper();
+		ArrayList<Course> clist = new ArrayList<Course>();
+		ArrayList<Course> to_remove = new ArrayList<Course>();
+		String rm_course = "";
+		Scanner sc = new Scanner(System.in);
+
+		try 
+		{
+			File temp = new File("courselist.json");
+			if (temp.createNewFile()) 
+				System.out.println("no courses exists in the system yet");
+			else 
+				clist = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
+
+			// actual deletion			
+			System.out.println("enter the name of the course you would like to remove");
+			rm_course = sc.nextLine();
+
+			for (Course c : clist)
+			{
+				if (c.getCoursename().equals(rm_course))
+					to_remove.add(c);
+			}
+			clist.removeAll(to_remove);
+			
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, clist);
+		} 
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
+		
+	}
 	// add instructor to the course
 	// WIP, need to restructure instructor class first i think
 	public static void assign_instructor() 

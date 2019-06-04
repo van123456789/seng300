@@ -23,6 +23,7 @@ public class Instructor extends User
 	{
 		// TODO
 		// get the user db, and create instance correlating to its id
+		run();
 	}
 
 	public Instructor (String id, String privilege, String fn, String ln)
