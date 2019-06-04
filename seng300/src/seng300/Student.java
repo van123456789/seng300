@@ -16,12 +16,21 @@ import java.util.Scanner;
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
+	ArrayList<Course> enrolled = new ArrayList<Course>();
 	
-	public Student(String id) 
+	public Student () 
 	{
-		super(id);
+		//TODO
+		// get userbase, and find matching id, and create an instance of it
 	}
 	
+	public Student (String id, String privilege, String fn, String ln)
+	{
+		this.id = id;
+		this.privilege = privilege;
+		this.firstname = fn;
+		this.lastname = ln;
+	}
 	public void run() 
 	{
 		System.out.println("Please select your option:");

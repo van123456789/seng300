@@ -23,6 +23,7 @@ public class HeadDepartment extends User
 		// get userbase, instantiate it
 		
 	}
+	
 	public HeadDepartment (String id, String privilege, String fn, String ln)
 	{
 		this.id = id;
