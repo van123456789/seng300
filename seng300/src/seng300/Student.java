@@ -16,8 +16,8 @@ import java.util.Scanner;
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
-	ArrayList<Course> enrolled = new ArrayList<Course>();
 	
+	// probably add string id as parameter, so i can get all the information i need when i start the class
 	public Student () 
 	{
 		//TODO
@@ -25,13 +25,26 @@ public class Student extends User
 		run();
 	}
 	
+	
 	public Student (String id, String privilege, String fn, String ln)
 	{
 		this.id = id;
 		this.privilege = privilege;
 		this.firstname = fn;
 		this.lastname = ln;
+		this.enrolled = new ArrayList<Course>();
 	}
+
+	public ArrayList<Course> getEnrolled() {
+		return enrolled;
+	}
+
+
+	public void setEnrolled(ArrayList<Course> enrolled) {
+		this.enrolled = enrolled;
+	}
+
+
 	public void run() 
 	{
 		System.out.println("Please select your option:");

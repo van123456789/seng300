@@ -18,7 +18,6 @@ public class Instructor extends User
 	private Scanner sc;
 	private String user_choice = "";
 	
-	
 	public Instructor() 
 	{
 		// TODO
@@ -32,6 +31,7 @@ public class Instructor extends User
 		this.privilege = privilege;
 		this.firstname = fn;
 		this.lastname = ln;
+		this.teaching = new ArrayList<Course>();
 	}
 
 

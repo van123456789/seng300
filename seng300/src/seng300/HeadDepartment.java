@@ -179,7 +179,8 @@ public class HeadDepartment extends User
 		}
 		return course_exists;
 	}
-	
+
+	// prompts user to remove a course
 	public static void remove_course() 
 	{
 		ObjectMapper objmapper = new ObjectMapper();
@@ -196,6 +197,7 @@ public class HeadDepartment extends User
 			else 
 				clist = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
 
+			show_courses();
 			// actual deletion			
 			System.out.println("enter the name of the course you would like to remove");
 			rm_course = sc.nextLine();

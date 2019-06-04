@@ -1,11 +1,33 @@
 package seng300;
 
+import java.util.ArrayList;
+
 public class User 
 {
 	protected String id;
 	protected String privilege;
 	protected String firstname;
 	protected String lastname;
+	protected ArrayList<Course> teaching;
+	protected ArrayList<Course> enrolled;
+	
+
+	
+	public ArrayList<Course> getTeaching() {
+		return teaching;
+	}
+
+	public void setTeaching(ArrayList<Course> teaching) {
+		this.teaching = teaching;
+	}
+
+	public ArrayList<Course> getEnrolled() {
+		return enrolled;
+	}
+
+	public void setEnrolled(ArrayList<Course> enrolled) {
+		this.enrolled = enrolled;
+	}
 
 	public User()
 	{
