@@ -5,66 +5,60 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Course {
-	private String course_id = "";
-	private String coursename = "";
-	private String instructor = "";
-	private String session = "";
-	private String section = "";
-	private static BufferedReader course_reader;
+	protected String course_id = "";
+	protected String coursename = "";
+	protected String instructor = "";
+	protected String session = "";
+	protected String section = "";
+	protected ArrayList<Student> enrolled_student;
+		
+	public Course() {};
 	
-	public Course(String course_id, String coursename, String instructor, String session, String section) {
+	public Course(String course_id, String coursename, String instructor, String session, String section) 
+	{
 		this.course_id = course_id;
 		this.coursename = coursename;
 		this.instructor = instructor;
 		this.session = session;
 		this.section = section;
+		this.enrolled_student = new ArrayList<Student>();
+	}
+	
+	public Course(String coursename, String aSession) {
 		
 	}
 	
-	public Course(String course_id) throws Exception {
+	// getter, setters
+	public String getCourse_id() {
+		return course_id;
+	}
+	public void setCourse_id(String course_id) {
 		this.course_id = course_id;
-		String aLine;
-		FileReader course = new FileReader("courselist.data");
-		course_reader = new BufferedReader(course);
-		while ((aLine = course_reader.readLine()) != null) {
-			String[] temp = aLine.split("-");
-			if (temp[0].equals(course_id)) {
-				this.coursename = temp[1];
-				this.instructor = temp[2];
-				this.session = temp[3];
-				this.section = temp[4];
-			}
-		}
-		course_reader.close();
-		course.close();
 	}
-	
-	public Course(String coursename, String session) throws Exception {
-		String aLine;
-		FileReader course = new FileReader("courselist.data");
-		course_reader = new BufferedReader(course);
-		while ((aLine = course_reader.readLine()) != null) {
-			String[] temp = aLine.split("-");
-			if (temp[1].equals(coursename) && temp[3].equals(session)) {
-				this.course_id = temp[0];
-				this.coursename = temp[1];
-				this.instructor = temp[2];
-				this.session = temp[3];
-				this.section = temp[4];
-			}
-		}
-		course_reader.close();
-		course.close();
+	public String getCoursename() {
+		return coursename;
 	}
-	
-	public String toString() {
-		return this.coursename;
+	public void setCoursename(String coursename) {
+		this.coursename = coursename;
 	}
-	
-	public String getCourseName() {
-		return this.coursename;
+	public ArrayList<Student> getEnrolled_student() {
+		return enrolled_student;
+	}
+	public void setEnrolled_student(ArrayList<Student> enrolled_student) {
+		this.enrolled_student = enrolled_student;
+	}
+	public void setInstructor(String instructor) {
+		this.instructor = instructor;
+	}
+	public void setSession(String session) {
+		this.session = session;
+	}
+	public void setSection(String section) {
+		this.section = section;
 	}
 	public String getInstructor() {
 		return this.instructor;
@@ -75,54 +69,7 @@ public class Course {
 	public String getSection() {
 		return this.section;
 	}
-	public String getCourseID() {
-		return this.course_id;
-	}
-	
-	public static boolean isValidCourse(String aCourse, String aSession) {
-		boolean result = false;
-		try {
-			String aLine;
-			FileReader course = new FileReader("courselist.data");
-			course_reader = new BufferedReader(course);
-			while ((aLine = course_reader.readLine()) != null) {
-				String[] temp = aLine.split("-");
-				if (temp[3].equals(aSession) && temp[1].equals(aCourse)) {
-					result = true;
-				}
-			}
-			course_reader.close();
-			course.close();
-		}
-		catch (Exception e) {
-			System.out.println("Error in isValid");
-		}
-		
-		return result;
-	}
-	
-	public static boolean isValidSession(String aSession) {
-		boolean result = false;
-		try {
-			String aLine;
-			FileReader course = new FileReader("courselist.data");
-			course_reader = new BufferedReader(course);
-			while ((aLine = course_reader.readLine()) != null) {
-				String[] temp = aLine.split("-");
-				if (temp[3].equals(aSession)) {
-					result = true;
-				}
-			}
-			course_reader.close();
-			course.close();
-		}
-		catch (Exception e) {
-			System.out.println("Error in isValid");
-		}
-		
-		return result;
-		
-	}
+
 	
 	public static void main(String[] args) throws Exception {
 	}

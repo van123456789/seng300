@@ -13,59 +13,93 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
-public class Student extends User{
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-	public Student(String id) {
-		super(id);
+public class Student extends User
+{
+	Scanner sc = new Scanner(System.in);
+	ObjectMapper objmapper = new ObjectMapper();
+	
+	// probably add string id as parameter, so i can get all the information i need when i start the class
+	public Student (String id) 
+	{
+		//TODO
+		// get userbase, and find matching id, and create an instance of it
+		run(id);
 	}
 	
-	public void run() {
+	
+	public Student (String id, String privilege, String fn, String ln)
+	{
+		this.id = id;
+		this.privilege = privilege;
+		this.firstname = fn;
+		this.lastname = ln;
+		this.enrolled = new ArrayList<Course>();
+	}
+
+	public ArrayList<Course> getEnrolled() {
+		return enrolled;
+	}
+
+
+	public void setEnrolled(ArrayList<Course> enrolled) {
+		this.enrolled = enrolled;
+	}
+
+
+	public void run(String id) 
+	{
 		System.out.println("Please select your option:");
 		System.out.println("1 - to register courses for this session");
 		System.out.println("2 - to register courses for future session");
 		System.out.println("3 - to drop courses for this session");
 		System.out.println("4 - to drop courses for future session");
-		
-		Scanner myScanner = new Scanner(System.in);
+
 		String user_choice = "";
-		while (true) {
-			user_choice = myScanner.nextLine();
-			if (user_choice.equals("1")) {
-				register_courses_for_term(EnvironmentConstant.getSession());
-				break;
-			}
-			if (user_choice.equals("2")) {
-				register_future_term();
-				break;
-			}
-			if (user_choice.equals("3")) {
-				drop_term(EnvironmentConstant.getSession());
-				break;
-			}
-			if (user_choice.equals("4")) {
-				drop_future_term();
-				break;
-			}
+
 			
-			else {
-				System.out.println("Incorrect response");
-			}
-			
+			switch(user_choice) 
+			{
+				case "1":
+					register_courses_for_term(EnvironmentConstant.getSession());
+					break;
+
+				case "2":
+					register_future_term();
+					break;
+					
+				case "3":
+					drop_term(EnvironmentConstant.getSession());
+					break;
+
+				case "4":
+					drop_past_term();
+					break;
+
+				case "5":
+					System.exit(0);
+					
+				default:
+					System.out.println("select a valid response");
+					break;
+			}				
 		}
-	}
 	
-	public void register_courses_for_term(String aSession) {
+	
+
+	public void register_courses_for_term(String aSession) 
+	{
+
 		List<Course> courses_to_enrol = new ArrayList<>();
 		System.out.println("These are courses you signed up" );
 		print_course_load(aSession);
 		register_courses(courses_to_enrol, aSession);
 		print_course_load(aSession);
-		
-		
+
 	}
 	
-	public  void register_courses(List<Course> courses_to_enrol, String aSession) {
-		Scanner myScanner = new Scanner(System.in);
+	public void register_courses(List<Course> courses_to_enrol, String aSession) {
 		boolean notFinishedAdding = true;
 		int state = 0;
 		while (notFinishedAdding) {
@@ -73,7 +107,7 @@ public class Student extends User{
 				try {
 					System.out.println("Please enter the course you want to register:");
 					System.out.println("Type exit to stop adding courses");
-					String input = myScanner.nextLine();
+					String input = sc.nextLine();
 					
 					if (input.equals("exit")) {
 						state = 1;
@@ -102,7 +136,7 @@ public class Student extends User{
 				System.out.println(courses_to_enrol);
 				System.out.println("Type ok to confirm");
 				System.out.println("Type remove to remove specific course");
-				String input = myScanner.nextLine();
+				String input = sc.nextLine();
 				if (input.equals("ok")) {
 					add_to_database(courses_to_enrol);
 					notFinishedAdding = false;
@@ -110,7 +144,7 @@ public class Student extends User{
 				if (input.equals("remove")) {
 					System.out.println("Please enter the index for course you want to remove");
 					try {
-						String index = myScanner.nextLine();
+						String index = sc.nextLine();
 						if (0 <= Integer.parseInt(index) && Integer.parseInt(index) < courses_to_enrol.size()) {
 							courses_to_enrol.remove(Integer.parseInt(index));
 							System.out.println("Course removed");
@@ -134,9 +168,9 @@ public class Student extends User{
 	}
 	
 	public void register_future_term() {
-		Scanner myScanner = new Scanner(System.in);
+
 		System.out.println("Please enter term you want to register in:");
-		String aSession = myScanner.nextLine();
+		String aSession = sc.nextLine();
 		if (Course.isValidSession(aSession)) {
 			register_courses_for_term(aSession);
 		}
@@ -145,15 +179,12 @@ public class Student extends User{
 	public void drop_term(String aSession) {
 		List<Course> courses_to_drop = new ArrayList<>();
 		System.out.println("These are courses you signed up");
-		print_course_load(aSession);
+		print_course_load(EnvironmentConstant.getSession());
 		drop_courses(courses_to_drop, aSession);
-		System.out.println("Theses are courses left that you signed up");
-		print_course_load(aSession);
 		
 	}
 	
 	public void drop_courses(List<Course> courses_to_drop, String aSession) {
-		Scanner myScanner = new Scanner(System.in);
 		boolean notFinishedDropping = true;
 		int state = 0;
 		while (notFinishedDropping) {
@@ -161,7 +192,7 @@ public class Student extends User{
 				try {
 					System.out.println("Please enter the course you want to drop:");
 					System.out.println("Type exit to stop dropping courses");
-					String input = myScanner.nextLine();
+					String input = sc.nextLine();
 					
 					if (input.equals("exit")) {
 						state = 1;
@@ -190,7 +221,7 @@ public class Student extends User{
 				System.out.println(courses_to_drop);
 				System.out.println("Type ok to confirm");
 				System.out.println("Type remove to remove specific course");
-				String input = myScanner.nextLine();
+				String input = sc.nextLine();
 				if (input.equals("ok")) {
 					remove_from_database(courses_to_drop);
 					notFinishedDropping = false;
@@ -198,7 +229,7 @@ public class Student extends User{
 				if (input.equals("remove")) {
 					System.out.println("Please enter the index for course you want to remove");
 					try {
-						String index = myScanner.nextLine();
+						String index = sc.nextLine();
 						if (0 <= Integer.parseInt(index) && Integer.parseInt(index) < courses_to_drop.size()) {
 							courses_to_drop.remove(Integer.parseInt(index));
 							System.out.println("Course removed");
@@ -225,6 +256,41 @@ public class Student extends User{
 		for (Course c : courses_to_drop) {
 			lines_to_remove.add(super.getID() + "-" + c.getCourseID());
 		}
+
+		
+		BufferedReader reader;
+		try {
+			reader = new BufferedReader(new FileReader(inputFile));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+			String currentLine;
+			String line_to_remove = "1351891440-83163";
+
+			while((currentLine = reader.readLine()) != null) {
+			    String trimmedLine = currentLine.trim();
+			    for (String line : lines_to_remove) {
+			    	if (currentLine.contentEquals(line)) {
+			    		continue;
+			    	}
+			    	else {
+			    		writer.write(currentLine + System.getProperty("line.separator"));
+			    	}
+			    }
+
+			}
+			writer.close(); 
+			reader.close();
+		} 
+		catch (Exception e) {
+			System.out.println("Error in remove_from_database");
+		}
+		boolean isDeleted = inputFile.delete();
+		boolean successful = tempFile.renameTo(inputFile);
+	}
+	
+
+	public void drop_past_term() 
+	{
+
 		
 		BufferedReader reader;
 		try {
@@ -274,7 +340,8 @@ public class Student extends User{
 	public void print_course_load(String aSession) {
 		String temp;
 
-		try {
+
+		{
 			FileReader courseload = new FileReader("student_courseload.data");
 			BufferedReader courseload_reader = new BufferedReader(courseload);
 			
@@ -317,14 +384,16 @@ public class Student extends User{
 	
 	
 	public void add_to_database(List<Course> courses_to_enrol) {
-		try {
+		try 
+		{
 			File file = new File("student_courseload.data");
 			FileWriter fr = new FileWriter(file, true);
 			BufferedWriter br = new BufferedWriter(fr);
 			PrintWriter pr = new PrintWriter(br);
-			for (Course c : courses_to_enrol) {
+
+			for (Course c : courses_to_enrol)
 				pr.println(super.getID() + "-" + c.getCourseID());
-			}
+			
 			pr.close();
 			br.close();
 			fr.close();
@@ -339,7 +408,8 @@ public class Student extends User{
 	}
 	
 	
-	
+
+
 	public static void main(String[] args) {
 		Student aStudent = new Student("1351891440");
 		aStudent.run();

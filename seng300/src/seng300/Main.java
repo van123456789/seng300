@@ -8,7 +8,40 @@ import java.util.*;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	
+	public static void main(String[] args) throws Exception 
+	{
+		Scanner sc = new Scanner(System.in);
+
+		System.out.println("**** menu ****");
+		System.out.println("1. login");
+		System.out.println("2. register");
+		System.out.println("q. quit");
+		System.out.println("**************");
+
+		String option = "";
+		while (true)
+		{
+			option = sc.nextLine();
+			switch(option)
+			{
+				case "1":
+					new Login();	// creates a new session for a user, if authenticated
+					break;
+				
+				case "2":
+					new Registration();
+					break;
+				
+				case "q":
+					System.exit(0);
+
+				default:
+					System.out.println("select a valid option");
+					break;					
+			}
+		}
+	/*
 		String combination;
 		combination = getInput();
 		int id_type = checker(combination);
@@ -21,8 +54,7 @@ public class Main {
 		if (id_type == 3) {
 			runAsHeadDep(combination);
 		}
-		
-		
+*/				
 	}
 	
 	
@@ -32,8 +64,7 @@ public class Main {
 	
 	
 	
-	
-	
+/*	
 	private static void runAsStudent(String combination) {
 		Student aStudent = new Student(combination);
 		aStudent.run();
@@ -98,5 +129,5 @@ public class Main {
 		}
 		return unique_combination;
 	}
-
+*/
 }

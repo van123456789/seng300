@@ -7,8 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 public class EnvironmentConstant {
-	
-	
+		
 	public static String getSession() {
 		String aLine = "Error in getSession";
 		FileReader environment = null;
