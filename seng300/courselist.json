@@ -1,5 +1,12 @@
 [ {
-  "course_id" : "123456",
+  "course_id" : "133311",
+  "coursename" : "CPSC 471",
+  "instructor" : "instructorB",
+  "session" : "",
+  "section" : "",
+  "enrolled_student" : [ ]
+}, {
+  "course_id" : "123344",
   "coursename" : "CPSC 271",
   "instructor" : "",
   "session" : "",

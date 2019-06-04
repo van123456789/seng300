@@ -16,11 +16,11 @@ import java.util.Scanner;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Student extends User
-{
+{	
 	Scanner sc = new Scanner(System.in);
 	ObjectMapper objmapper = new ObjectMapper();
-	
-	// probably add string id as parameter, so i can get all the information i need when i start the class
+
+	// start new user session for student with specific id
 	public Student (String id) 
 	{
 		//TODO
@@ -37,16 +37,6 @@ public class Student extends User
 		this.lastname = ln;
 		this.enrolled = new ArrayList<Course>();
 	}
-
-	public ArrayList<Course> getEnrolled() {
-		return enrolled;
-	}
-
-
-	public void setEnrolled(ArrayList<Course> enrolled) {
-		this.enrolled = enrolled;
-	}
-
 
 	public void run(String id) 
 	{

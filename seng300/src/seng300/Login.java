@@ -9,6 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Login 
 {	
+	SessionManager sm = new SessionManager();
 	Scanner sc = new Scanner(System.in);
 	ObjectMapper objmapper = new ObjectMapper();
 	ArrayList<User> userlist = new ArrayList<User>();
@@ -23,11 +24,7 @@ public class Login
 		// get the userlist for authentication
 		try 
 		{
-			File temp = new File("userlist.json");
-			if (temp.createNewFile()) 
-				System.out.println("no user exists in the system yet");
-			else 
-				userlist = objmapper.readValue(temp,  new TypeReference<ArrayList<User>>() {});
+			userlist = sm.getUserList("userlist.json");
 
 			// simple authentication using username
 			// TODO implement password authentication
@@ -39,15 +36,16 @@ public class Login
 				if (u.getId().equals(id))
 				{
 					if (u.getPrivilege().equals("1"))
-						new HeadDepartment(id);	// create a new session for the department head level user
+						new HeadDepartment(id);			// create a new session for the department head level user
 					
 					if (u.getPrivilege().equals("2"))
-						new Instructor(id);		// create a new session for the instructor level user
+						new Instructor(id);				// create a new session for the instructor level user
 					
 					if (u.getPrivilege().equals("3"))
-						new Student(id);			// create a new session for the student level user
+						new Student(id);				// create a new session for the student level user
 				}
 			}
+			System.out.println("user credential does not match");
 		}
 		catch (Exception e)
 		{

@@ -16,7 +16,10 @@ public class Course {
 	protected String section = "";
 	protected ArrayList<Student> enrolled_student;
 		
-	public Course() {};
+	public Course() 
+	{
+		
+	}
 	
 	public Course(String course_id, String coursename, String instructor, String session, String section) 
 	{
@@ -64,10 +67,5 @@ public class Course {
 	}
 	public String getSection() {
 		return this.section;
-	}
-
-	
-	public static void main(String[] args) throws Exception {
-	}
-	
+	}	
 }

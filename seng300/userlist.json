@@ -17,6 +17,20 @@
   "privilege" : "2",
   "teaching" : [ ],
   "enrolled" : null,
-  "fn" : "i",
-  "ln" : "a"
+  "fn" : "kim",
+  "ln" : "lala"
+}, {
+  "id" : "instructorB",
+  "privilege" : "2",
+  "teaching" : [ {
+    "course_id" : "133311",
+    "coursename" : "CPSC 471",
+    "instructor" : "instructorB",
+    "session" : "",
+    "section" : "",
+    "enrolled_student" : [ ]
+  } ],
+  "enrolled" : null,
+  "fn" : "habib",
+  "ln" : "bib"
 } ]

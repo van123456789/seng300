@@ -1,6 +1,7 @@
 package seng300;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -16,14 +17,20 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class HeadDepartment extends User
 {
-	static Scanner sc;
-	static String option = "";
+	private Scanner sc = new Scanner(System.in);
+	private String option = "";
+	private SessionManager sm = new SessionManager();
+	private ArrayList<Course> clist;
+	private ArrayList<User> ulist;
+	private ObjectMapper objmapper;
 	
 	public HeadDepartment(String id) 
 	{
+		this.objmapper = new ObjectMapper();
 		run(id);
 	}
 	
+	// for user creation
 	public HeadDepartment (String id, String privilege, String fn, String ln)
 	{
 		this.id = id;
@@ -32,9 +39,10 @@ public class HeadDepartment extends User
 		this.lastname = ln;
 	}
 	
-	public static void run (String id) 
+	public void run (String id) 
 	{
-		sc = new Scanner(System.in);
+		clist = sm.getCourseList("courselist.json");
+		ulist = sm.getUserList("userlist.json");
 
 		System.out.println("0. show courses");
 		System.out.println("1. add course");
@@ -71,94 +79,56 @@ public class HeadDepartment extends User
 	}
 	
 	// shows courses already present in the system
-	public static void show_courses()
+	public void show_courses()
 	{
-		try 
-		{
-			ObjectMapper objmapper = new ObjectMapper();
-			File temp = new File("courselist.json");
-			if (temp.createNewFile()) 
-				System.out.println("no courses exists in the system yet");
-			else 
-			{
-				ArrayList<Course> clist = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
-				System.out.println(clist);
-				for (Course c : clist)
-				{
-					System.out.println(c.getCoursename());
-				}	
-			}
-		} 
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-
+		for (Course c : clist)
+			System.out.println(c.getCoursename());
 	}
 	
 	// to add user specified course to the system, does some basic checkings
-	public static void add_course()
+	public void add_course()
 	{
-		// ObjectMapper is for serializing/deserializing json objects
-		ObjectMapper objmapper = new ObjectMapper();
-		ArrayList<Course> course_list = new ArrayList<Course>();
-
-		String course_code = "";
-		String course_name = ""; 
-		String instructor = ""; 
-		String session = ""; 
-		String section = "";
-		Course c;
-
-		// check for courselist.json
 		try 
-		{	
-			File temp = new File("courselist.json");
-			
-			if (temp.createNewFile())
-			{
-				System.out.println("file is created");
-				System.out.println("adding course..");
-			}	
-			else 
-			{
-				// courselist.json is already present in the system
-				// create the course_list
-				course_list = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
-			}
-
+		{
+			String course_code = "";
+			String course_name = ""; 
+			String instructor = ""; 
+			String session = ""; 
+			String section = "";
+			Course c;
+	
 			// ask head department for specification of the course
 			System.out.println("enter course code");
 			course_code = sc.nextLine();
 			
 			System.out.println("enter course name");
 			course_name = sc.nextLine();
-
+	
 			System.out.println("enter instructor");
 			instructor = sc.nextLine();
-
+	
 			System.out.println("enter session");
 			session = sc.nextLine();
-
+	
 			System.out.println("enter section");
 			section = sc.nextLine();
-
+	
 			// check if user specified course already exists in the system
 			c = new Course(course_code, course_name, instructor, session, section);
-			if (!course_exists(c, course_list)) 
-				course_list.add(c);
-
+			if (!course_exists(c, clist)) 
+				clist.add(c);
+	
 			// add course to database
-			objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, course_list);
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(new File("courselist.json"), clist);
 		} 
-		catch (Exception e) 
+		catch (IOException e) 
 		{
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	// compares and checks if given course already exists in given course_list (in the db)
-	public static boolean course_exists(Course c, ArrayList<Course> course_list) 
+	public boolean course_exists(Course c, ArrayList<Course> course_list) 
 	{
 		boolean course_exists = false;
 
@@ -181,22 +151,12 @@ public class HeadDepartment extends User
 	}
 
 	// prompts user to remove a course
-	public static void remove_course() 
+	public void remove_course() 
 	{
-		ObjectMapper objmapper = new ObjectMapper();
-		ArrayList<Course> clist = new ArrayList<Course>();
 		ArrayList<Course> to_remove = new ArrayList<Course>();
 		String rm_course = "";
-		Scanner sc = new Scanner(System.in);
-
 		try 
 		{
-			File temp = new File("courselist.json");
-			if (temp.createNewFile()) 
-				System.out.println("no courses exists in the system yet");
-			else 
-				clist = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
-
 			show_courses();
 			// actual deletion			
 			System.out.println("enter the name of the course you would like to remove");
@@ -209,44 +169,72 @@ public class HeadDepartment extends User
 			}
 			clist.removeAll(to_remove);
 			
-			objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, clist);
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(new File("courselist.json"), clist);
 		} 
 		catch (Exception e) 
 		{
 			e.printStackTrace();
-		}
-		
-		
+		}		
 	}
 	// add instructor to the course
 	// WIP, need to restructure instructor class first i think
-	public static void assign_instructor() 
-	{	// TODO assign instructor to a course
-		ObjectMapper objmapper = new ObjectMapper();
-		ArrayList<Course> course_list = new ArrayList<Course>();
+	public void assign_instructor() 
+	{
+		String course_to_update = "";
+		String instructor_id = "";
+		
 		try 
 		{
-			File temp = new File("courselist.json");
-			
-			// show which course needs an instructor
-			if (temp.createNewFile()) 
-				System.out.println("no courses exists in the system yet");
-			else 
-			{
-				System.out.println("currently, these course(s) needs an instructor: ");
-				course_list = objmapper.readValue(temp,  new TypeReference<ArrayList<Course>>() {});
-			}			
+			System.out.println("currently, these course(s) needs an instructor: ");
 			// display which courses needs attnetion
-			instructor_needed(course_list);
+			instructor_needed(clist);
+			System.out.println("these instructors are available to teach: ");
+			show_instructors(ulist);
 			
+			System.out.println("choose a course to assign instructor");
+			course_to_update = sc.nextLine();
+			System.out.println("enter instructor id");
+			instructor_id = sc.nextLine();
+
+			for (Course c : clist)
+			{
+				if (c.getCoursename().equals(course_to_update)) 
+				{
+					c.setInstructor(instructor_id);
+					
+					for (User u : ulist)
+					{
+						if (u.getId().equals(instructor_id))
+							u.getTeaching().add(c);
+					}						
+				}
+			}
 			
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(new File("courselist.json"), clist);
+			objmapper.writerWithDefaultPrettyPrinter().writeValue(new File("userlist.json"), ulist);
+
 		} 
+		
 		catch (Exception e)
 		{
 			e.printStackTrace();
 		}
 	}
-	public static void instructor_needed(ArrayList<Course> cs) 
+	
+	// show available instructors
+	public void show_instructors(ArrayList<User> us) 
+	{
+		for (User u : us)
+		{
+			if (u.getPrivilege().equals("2"))
+			{
+				if (u.getTeaching().size() < 5)
+					System.out.println(u.getFn() + " " + u.getLn());
+			}					
+		}	
+	}
+	
+	public void instructor_needed(ArrayList<Course> cs) 
 	{
 		String temp_str = "";
 		for (Course c : cs)

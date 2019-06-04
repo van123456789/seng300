@@ -13,18 +13,21 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Instructor extends User
 {
-	private Scanner sc;
+	private Scanner sc = new Scanner(System.in);
 	private String user_choice = "";
+	private ObjectMapper objmapper = new ObjectMapper();
 	
+	// start new instructor session for specific id
 	public Instructor(String id) 
 	{
-		// TODO
-		// get the user db, and create instance correlating to its id
 		run(id);
 	}
 
+	// for user creation
 	public Instructor (String id, String privilege, String fn, String ln)
 	{
 		this.id = id;
@@ -34,7 +37,6 @@ public class Instructor extends User
 		this.teaching = new ArrayList<Course>();
 	}
 
-
 	public void run(String id) 
 	{
 		
@@ -42,9 +44,7 @@ public class Instructor extends User
 		System.out.println("1 - request to teach a course");
 		System.out.println("2 - request to remove a course");
 		System.out.println("3 - update course information");
-		
-		sc = new Scanner(System.in);
-		
+				
 		while (true) {
 			user_choice = sc.nextLine();
 			if (user_choice.equals("1")) {
