@@ -1,36 +1,41 @@
 [ {
-  "id" : "deptheada",
+  "id" : "dh",
   "privilege" : "1",
   "teaching" : null,
   "enrolled" : null,
-  "fn" : "CPSC",
-  "ln" : "MASTER"
+  "teaching2" : null,
+  "enrolled2" : null,
+  "name" : "dh"
 }, {
-  "id" : "studentA",
+  "id" : "ins",
+  "privilege" : "2",
+  "teaching" : null,
+  "enrolled" : null,
+  "teaching2" : [ "CPSC 457", "CPSC 457" ],
+  "enrolled2" : null,
+  "name" : "ins"
+}, {
+  "id" : "s0",
   "privilege" : "3",
   "teaching" : null,
-  "enrolled" : [ ],
-  "fn" : "c",
-  "ln" : "l"
-}, {
-  "id" : "InstructorA",
-  "privilege" : "2",
-  "teaching" : [ ],
   "enrolled" : null,
-  "fn" : "kim",
-  "ln" : "lala"
+  "teaching2" : null,
+  "enrolled2" : [ ],
+  "name" : "ins"
 }, {
-  "id" : "instructorB",
-  "privilege" : "2",
-  "teaching" : [ {
-    "course_id" : "133311",
-    "coursename" : "CPSC 471",
-    "instructor" : "instructorB",
-    "session" : "",
-    "section" : "",
-    "enrolled_student" : [ ]
-  } ],
+  "id" : "s1",
+  "privilege" : "3",
+  "teaching" : null,
   "enrolled" : null,
-  "fn" : "habib",
-  "ln" : "bib"
+  "teaching2" : null,
+  "enrolled2" : [ ],
+  "name" : "ins"
+}, {
+  "id" : "s2",
+  "privilege" : "3",
+  "teaching" : null,
+  "enrolled" : null,
+  "teaching2" : null,
+  "enrolled2" : [ ],
+  "name" : "ins"
 } ]

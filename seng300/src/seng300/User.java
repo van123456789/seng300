@@ -6,22 +6,24 @@ public class User
 {
 	protected String id;
 	protected String privilege;
-	protected String firstname;
-	protected String lastname;
 	protected ArrayList<Course> teaching;
 	protected ArrayList<Course> enrolled;
-		
+
+	// trying to make json file lighter
+	protected ArrayList<String> teaching2;
+	protected ArrayList<String> enrolled2;
+	protected String name;
+
 	public User()
 	{
 		
 	}
 	
-	public User (String id, String privilege, String fn, String ln)
+	public User (String id, String privilege, String name)
 	{
 		this.id = id;
 		this.privilege = privilege;
-		this.firstname = fn;
-		this.lastname = ln;
+		this.name = name;
 	}
 
 	public void setId(String id)
@@ -33,37 +35,24 @@ public class User
 	{
 		return id;
 	}
+
+	public void setName(String n)
+	{
+		this.name = n;
+	}
+	
+	public String getName() 
+	{
+		return name;
+	}
+
 	
 	// get/setters
-	// get first name
-	public String getFn() 
-	{
-		return firstname;
-	}
-
-	// set first name
-	public void setFn(String fn) 
-	{
-		this.firstname = fn;
-	}
-
-	// get last name
-	public String getLn() 
-	{
-		return lastname;
-	}
-
-	// set last name
-	public void setLn(String ln) 
-	{
-		this.lastname = ln;
-	}
 
 	// get privilege
 	public String getPrivilege() {
 		return privilege;
 	}
-
 	// set privilege
 	public void setPrivilege(String privilege) {
 		this.privilege = privilege;
@@ -84,4 +73,24 @@ public class User
 	public void setEnrolled(ArrayList<Course> enrolled) {
 		this.enrolled = enrolled;
 	}	
+
+	
+	// to make json file lighter
+	public ArrayList<String> getTeaching2() {
+		return teaching2;
+	}
+
+	public void setTeaching2(ArrayList<String> teaching2) {
+		this.teaching2 = teaching2;
+	}
+
+	public ArrayList<String> getEnrolled2() {
+		return enrolled2;
+	}
+
+	public void setEnrolled2(ArrayList<String> enrolled2) {
+		this.enrolled2 = enrolled2;
+	}
+
+	
 }

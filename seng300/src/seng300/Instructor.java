@@ -19,7 +19,6 @@ public class Instructor extends User
 {
 	private Scanner sc = new Scanner(System.in);
 	private String user_choice = "";
-	private ObjectMapper objmapper = new ObjectMapper();
 	
 	// start new instructor session for specific id
 	public Instructor(String id) 
@@ -27,14 +26,13 @@ public class Instructor extends User
 		run(id);
 	}
 
-	// for user creation
-	public Instructor (String id, String privilege, String fn, String ln)
+	// use this for now
+	public Instructor (String id, String privilege, String name)
 	{
 		this.id = id;
 		this.privilege = privilege;
-		this.firstname = fn;
-		this.lastname = ln;
-		this.teaching = new ArrayList<Course>();
+		this.name = name;
+		this.teaching2 = new ArrayList<String>();
 	}
 
 	public void run(String id) 

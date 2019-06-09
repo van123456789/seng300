@@ -50,4 +50,40 @@ public class SessionManager
 		}		
 		return ulist;
 	}
+
+	/* for next three methods, 
+	 * can add check privilege of the user that is calling this function, 
+	 * however these calls are tied to the session
+	 * hence there is no need for it at the moment
+	 */ 
+	public void updateCourseDB (ArrayList<Course> cl)
+	{
+		try 
+		{
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("courselist.json"), cl);
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	public void updateUserDB(ArrayList<User> ul)
+	{		
+		try 
+		{
+			mapper.writerWithDefaultPrettyPrinter().writeValue(new File("userlist.json"), ul);
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	public void updateDB(ArrayList<Course> c, ArrayList<User> u)
+	{
+		updateCourseDB(c);
+		updateUserDB(u);
+	}
+
 }

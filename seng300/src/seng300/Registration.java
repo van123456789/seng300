@@ -21,7 +21,7 @@ public class Registration
 	{
 		String option = "";
 
-		while (true)
+		Main: while (true)
 		{
             System.out.println("**** registration ****");
             System.out.println("1. register as dept head");
@@ -46,9 +46,8 @@ public class Registration
                 	break;
                 	
                 case "q":
-                	System.exit(0);
+                	break Main;
             }
-
 		}	
 	}
 	private void create_user (String privilege) 
@@ -58,8 +57,9 @@ public class Registration
 		ArrayList<User> ulist = new ArrayList<User>();
 		
 		String id = "";
-		String fn = "";
-		String ln = "";
+//		String fn = "";
+//		String ln = "";
+		String name = "";
 
 		// file generation
 		try 
@@ -70,7 +70,7 @@ public class Registration
 			else 
 				ulist = objmapper.readValue(temp,  new TypeReference<ArrayList<User>>() {});
 			
-			
+/*			
 			// prompt user to create an id
 			System.out.println("id: ");
 			id = sc.nextLine();
@@ -78,23 +78,29 @@ public class Registration
 			fn = sc.nextLine();
 			System.out.println("lastname: ");
 			ln = sc.nextLine();
+*/
+			// prompt user to create an id
+			System.out.println("id: ");
+			id = sc.nextLine();
+			System.out.println("name: ");
+			name = sc.nextLine();
 			
 			if (privilege.equals("1"))
 			{
-				HeadDepartment h = new HeadDepartment(id, privilege, fn, ln);
+				HeadDepartment h = new HeadDepartment(id, privilege, name);
 				ulist.add((User) h);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);
 			}	
 			if (privilege.equals("2"))
 			{
-				Instructor i = new Instructor(id, privilege, fn, ln);
+				Instructor i = new Instructor(id, privilege, name);
 				ulist.add((User) i);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);
 				
 			}	
 			if (privilege.equals("3"))
 			{
-				Student s = new Student(id, privilege, fn, ln);
+				Student s = new Student(id, privilege, name);
 				ulist.add((User) s);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);				
 			}	
@@ -103,10 +109,5 @@ public class Registration
 		{
 			e.printStackTrace();
 		}		
-	}
-	
-	public static void main (String [] args) 
-	{
-		new Registration();
 	}
 }

@@ -38,6 +38,14 @@ public class Student extends User
 		this.enrolled = new ArrayList<Course>();
 	}
 
+	public Student (String id, String privilege, String name)
+	{
+		this.id = id;
+		this.privilege = privilege;
+		this.name = name;
+		this.enrolled2 = new ArrayList<String>();
+	}
+
 	public void run(String id) 
 	{
 		System.out.println("Please select your option:");

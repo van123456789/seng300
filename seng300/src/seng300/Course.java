@@ -15,7 +15,8 @@ public class Course {
 	protected String session = "";
 	protected String section = "";
 	protected ArrayList<Student> enrolled_student;
-		
+	protected ArrayList<String> s_name;	
+
 	public Course() 
 	{
 		
@@ -29,6 +30,7 @@ public class Course {
 		this.session = session;
 		this.section = section;
 		this.enrolled_student = new ArrayList<Student>();
+		this.s_name = new ArrayList<String>();
 	}
 	
 	// getter, setters
@@ -68,4 +70,14 @@ public class Course {
 	public String getSection() {
 		return this.section;
 	}	
+	
+	public ArrayList<String> getS_name() {
+		return s_name;
+	}
+
+	public void setS_name(ArrayList<String> s_name) {
+		this.s_name = s_name;
+	}
+
+
 }
