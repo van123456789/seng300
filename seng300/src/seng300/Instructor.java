@@ -218,8 +218,8 @@ public class Instructor extends User{
 	}
 	
 	public static void main(String[] args) {
-		//Instructor aInstructor = new Instructor("7643541004");
-		//aInstructor.run();
+		Instructor aInstructor = new Instructor("7643541004");
+		aInstructor.run();
 		//Instructor.inititialize();
 	}
 	
