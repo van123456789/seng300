@@ -13,18 +13,23 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
 	ObjectMapper objmapper = new ObjectMapper();
+	String id;
 	
 	// probably add string id as parameter, so i can get all the information i need when i start the class
 	public Student (String id) 
 	{
-		//TODO
-		// get userbase, and find matching id, and create an instance of it
+		this.id = id;
 		run(id);
 	}
 	
@@ -50,14 +55,17 @@ public class Student extends User
 
 	public void run(String id) 
 	{
-		System.out.println("Please select your option:");
-		System.out.println("1 - to register courses for this session");
-		System.out.println("2 - to register courses for future session");
-		System.out.println("3 - to drop courses for this session");
-		System.out.println("4 - to drop courses for future session");
+		boolean stillOn = true;
+		while (stillOn) {
+			System.out.println("Please select your option:");
+			System.out.println("1 - to register courses for this session");
+			System.out.println("2 - to register courses for future session");
+			System.out.println("3 - to drop courses for this session");
+			System.out.println("4 - to drop courses for future session");
+			System.out.println("5 - to exit the system");
 
-		String user_choice = "";
-
+			Scanner sc = new Scanner(System.in);
+			String user_choice = sc.nextLine();
 			
 			switch(user_choice) 
 			{
@@ -78,25 +86,56 @@ public class Student extends User
 					break;
 
 				case "5":
-					System.exit(0);
+					stillOn = false;
+					break;
 					
 				default:
 					System.out.println("select a valid response");
 					break;
-			}				
+			}		
 		}
+			
+	}
 	
-	
-
 	public void register_courses_for_term(String aSession) 
 	{
 
 		List<Course> courses_to_enrol = new ArrayList<>();
-		System.out.println("These are courses you signed up" );
+		System.out.println("These are courses you signed up: " );
 		print_course_load(aSession);
+		System.out.println("Theses are courses available for this term: ");
+		print_available_courses(aSession);
 		register_courses(courses_to_enrol, aSession);
-		print_course_load(aSession);
 
+	}
+	
+	public void print_available_courses(String aSession) {
+		JSONParser jsonParser = new JSONParser();
+		ArrayList <String> courseload = new ArrayList<>();
+        
+        try (FileReader reader = new FileReader("test1.json")) {
+        	
+            Object obj = jsonParser.parse(reader);
+            JSONArray courseList = (JSONArray) obj;
+            
+			JSONObject courseDetails=new JSONObject();
+            for (int i = 0; i < courseList.size(); i++) {
+            	courseDetails = (JSONObject) courseList.get(i);
+            	String session = (String) courseDetails.get("session");
+            	if (session.equals(aSession)) {
+            		courseload.add((String) courseDetails.get("coursename"));
+            	}
+            	
+        		
+            		
+            }
+
+        }
+        catch (Exception e) {
+        	System.out.println("Error in print_course_load");
+        }
+        
+        System.out.println(courseload);
 	}
 	
 	public void register_courses(List<Course> courses_to_enrol, String aSession) {
@@ -114,7 +153,8 @@ public class Student extends User
 					}
 					else {
 						Course newCourse = new Course(input, aSession);
-						if (newCourse.getCourseName()!="") {
+						newCourse.fillout1();
+						if (newCourse.getCoursename()!="") {
 							courses_to_enrol.add(newCourse);
 							System.out.println("Current courses to register:");
 							System.out.println(courses_to_enrol);
@@ -127,7 +167,7 @@ public class Student extends User
 					
 				}
 				catch (Exception e){
-					System.out.println("Should not see me");
+					e.printStackTrace();
 				}
 				
 			}
@@ -140,6 +180,7 @@ public class Student extends User
 				if (input.equals("ok")) {
 					add_to_database(courses_to_enrol);
 					notFinishedAdding = false;
+					break;
 				}
 				if (input.equals("remove")) {
 					System.out.println("Please enter the index for course you want to remove");
@@ -178,9 +219,13 @@ public class Student extends User
 	
 	public void drop_term(String aSession) {
 		List<Course> courses_to_drop = new ArrayList<>();
-		System.out.println("These are courses you signed up");
-		print_course_load(EnvironmentConstant.getSession());
+		System.out.println("These are courses you signed up: ");
+		print_course_load(aSession);
 		drop_courses(courses_to_drop, aSession);
+		System.out.println("Theses are courses you signed up: ");
+		print_course_load(aSession);
+		
+		
 		
 	}
 	
@@ -199,7 +244,8 @@ public class Student extends User
 					}
 					else {
 						Course newCourse = new Course(input, aSession);
-						if (newCourse.getCourseName()!="") {
+						newCourse.fillout1();
+						if (newCourse.getCoursename()!="") {
 							courses_to_drop.add(newCourse);
 							System.out.println("Current courses to drop:");
 							System.out.println(courses_to_drop);
@@ -250,78 +296,15 @@ public class Student extends User
 	
 	
 	public void remove_from_database(List<Course> courses_to_drop) {
-		File inputFile = new File("student_courseload.data");
-		File tempFile = new File("temp.data");
-		List<String> lines_to_remove = new ArrayList<>();
 		for (Course c : courses_to_drop) {
-			lines_to_remove.add(super.getID() + "-" + c.getCourseID());
+			c.remove_from_database(id);
 		}
-
-		
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(inputFile));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-			String currentLine;
-			String line_to_remove = "1351891440-83163";
-
-			while((currentLine = reader.readLine()) != null) {
-			    String trimmedLine = currentLine.trim();
-			    for (String line : lines_to_remove) {
-			    	if (currentLine.contentEquals(line)) {
-			    		continue;
-			    	}
-			    	else {
-			    		writer.write(currentLine + System.getProperty("line.separator"));
-			    	}
-			    }
-
-			}
-			writer.close(); 
-			reader.close();
-		} 
-		catch (Exception e) {
-			System.out.println("Error in remove_from_database");
-		}
-		boolean isDeleted = inputFile.delete();
-		boolean successful = tempFile.renameTo(inputFile);
+		System.out.println("removed successfully");
 	}
 	
 
 	public void drop_past_term() 
 	{
-
-		
-		BufferedReader reader;
-		try {
-			reader = new BufferedReader(new FileReader(inputFile));
-			BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
-			String currentLine;
-			String line_to_remove = "1351891440-83163";
-
-			while((currentLine = reader.readLine()) != null) {
-			    String trimmedLine = currentLine.trim();
-			    for (String line : lines_to_remove) {
-			    	if (currentLine.contentEquals(line)) {
-			    		continue;
-			    	}
-			    	else {
-			    		writer.write(currentLine + System.getProperty("line.separator"));
-			    	}
-			    }
-
-			}
-			writer.close(); 
-			reader.close();
-		} 
-		catch (Exception e) {
-			System.out.println("Error in remove_from_database");
-		}
-		boolean isDeleted = inputFile.delete();
-		boolean successful = tempFile.renameTo(inputFile);
-	}
-	
-	public void drop_future_term() {
 		System.out.println("Enter term you want to drop:");
 		Scanner myScanner = new Scanner(System.in);
 		boolean isValid = false;
@@ -337,82 +320,52 @@ public class Student extends User
 		}
 	}
 	
-	public void print_course_load(String aSession) {
-		String temp;
-
-
-		{
-			FileReader courseload = new FileReader("student_courseload.data");
-			BufferedReader courseload_reader = new BufferedReader(courseload);
-			
-
-			List<String> courses_in_code = new ArrayList<>();
-			while ((temp = courseload_reader.readLine()) != null) {
-				String[] splitedLine = temp.split("-");
-				if (splitedLine[0].equals(super.getID())) {
-					courses_in_code.add(splitedLine[1]);
-				}
-			}
-			
-			
-			List<String> courses = new ArrayList<>();
-			
-
-			
-			for (String course : courses_in_code) {
-				Course aCourse = new Course(course);
-				if (aCourse.getSession().equals(aSession)) {
-					courses.add(aCourse.getCourseName());
-				}
-				
-			}
-			System.out.println(courses);
-			
-			courseload_reader.close();
-			courseload.close();
-		}
-		catch (FileNotFoundException e) {
-			System.out.println("CourseLoad File not found");
-		}
-		catch (IOException e) {
-			System.out.println("IO error");
-		} catch (Exception e) {
-			System.out.println("Error in Course class");
-			
-		}
-	}
-	
 	
 	public void add_to_database(List<Course> courses_to_enrol) {
-		try 
-		{
-			File file = new File("student_courseload.data");
-			FileWriter fr = new FileWriter(file, true);
-			BufferedWriter br = new BufferedWriter(fr);
-			PrintWriter pr = new PrintWriter(br);
-
-			for (Course c : courses_to_enrol)
-				pr.println(super.getID() + "-" + c.getCourseID());
-			
-			pr.close();
-			br.close();
-			fr.close();
-			System.out.println("Registered successfully");
-		} 
-		catch (FileNotFoundException e) {
-			System.out.println("Cannot find file stuent_courseload.data");
-		} 
-		catch (IOException e) {
-			System.out.println("IO error in add_to_database");
+		for (Course c : courses_to_enrol) {
+			c.add_student(id);
 		}
+		System.out.println("Added successfully");
+			
 	}
 	
+	public void print_course_load(String aSession) {
+		
+		JSONParser jsonParser = new JSONParser();
+		ArrayList <String> courseload = new ArrayList<>();
+        
+        try (FileReader reader = new FileReader("test1.json")) {
+        	
+            Object obj = jsonParser.parse(reader);
+            JSONArray courseList = (JSONArray) obj;
+            
+			JSONObject courseDetails=new JSONObject();
+            for (int i = 0; i < courseList.size(); i++) {
+            	courseDetails = (JSONObject) courseList.get(i);
+            	ArrayList<String> enrolled_student = Course.arrayConvert((String) courseDetails.get("enrolled_student"));
+            	String session = (String) courseDetails.get("session");
+            	if (enrolled_student.contains(this.id) && session.equals(aSession)) {
+            		courseload.add((String) courseDetails.get("coursename"));
+            	}
+            	
+        		
+            		
+            }
+
+        }
+        catch (Exception e) {
+        	System.out.println("Error in print_course_load");
+        }
+        
+        System.out.println(courseload);
+        
+	}
+
+
 	
-
-
+	
 	public static void main(String[] args) {
 		Student aStudent = new Student("1351891440");
-		aStudent.run();
 	}
 
 }
