@@ -38,6 +38,7 @@ public class Instructor extends User{
 	public void run() {		
 		boolean stillOn = true;
 		while (stillOn) {
+			System.out.println("----------------------------------------");
 			System.out.println("Enter your action:");
 			System.out.println("Type 1 to request to teach a course");
 			System.out.println("Type 2 to view current request's result");
@@ -87,6 +88,7 @@ public class Instructor extends User{
 		}
 		System.out.println("These are unassigned courses available: ");
 		print_unassigned_courses(input);
+		aSession = input;
 		get_request(input);
 		
 	}
@@ -174,6 +176,40 @@ public class Instructor extends User{
 	
 	public void send_request(List<String> requesting_courses) {
 		
+		JSONParser jsonParser = new JSONParser();
+		 try (FileReader reader = new FileReader("requesting.json")) {
+	        	
+	            Object obj = jsonParser.parse(reader);
+	            JSONArray requestList = (JSONArray) obj;
+	            
+	            for (String course_name : requesting_courses) {
+	    			Course aCourse = new Course(course_name, aSession);
+	    			aCourse.fillout1();
+	    			String course_id = aCourse.getCourse_id();
+	    			
+	    			JSONObject request = new JSONObject();
+	                request.put("instructor", this.id);
+	                request.put("course_id", course_id);
+	                request.put("status", "waiting");
+	                requestList.add(request);
+	    		}
+	            
+	            FileWriter file = new FileWriter("requesting.json");
+	            
+	            file.write(requestList.toJSONString());
+	            file.flush();
+	            
+	            System.out.println("Request sent");
+	            
+
+	     }
+		 catch (Exception e) {
+			 e.printStackTrace();
+		 }
+		 
+		 remove_duplicated_request();
+		
+		
 	}
 	
 	public void print_unassigned_courses(String aSession) {
@@ -201,6 +237,8 @@ public class Instructor extends User{
             	}
             }
             
+            
+            
 
         }
         catch (Exception e) {
@@ -214,11 +252,101 @@ public class Instructor extends User{
 		
 	
 	public void reviewrequest() {
-		
+		JSONParser jsonParser = new JSONParser();
+        
+        try (FileReader reader = new FileReader("requesting.json")) {
+        	
+            Object obj = jsonParser.parse(reader);
+            JSONArray requestList = (JSONArray) obj;
+            
+			JSONObject request = new JSONObject();
+            for (int i = 0; i < requestList.size(); i++) {
+            	request = (JSONObject) requestList.get(i);
+            	String instructor_id = (String) request.get("instructor");
+            	
+            	if (instructor_id.equals(this.id)) {
+            		String status = (String) request.get("status");
+                	String course_id = (String) request.get("course_id");
+                	
+                	Course aCourse = new Course(course_id);
+                	aCourse.fillout2();
+                	System.out.println("Course name:" + aCourse.getCoursename() + " - " + "session: " + aCourse.getSession() + " - " + "status : " + status);
+            	}
+            	
+            	
+            	
+            	
+            }
+        }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
 	}
+	
+	
+	private void remove_duplicated_request() {
+		JSONParser jsonParser = new JSONParser();
+        
+        try (FileReader reader = new FileReader("requesting.json")) {
+        	
+            Object obj = jsonParser.parse(reader);
+            JSONArray requestList = (JSONArray) obj;
+            
+            ArrayList<JSONObject> objects_to_delelete = new ArrayList<>();
+            
+			JSONObject request1 = new JSONObject();
+			JSONObject request2 = new JSONObject();
+			String instructor_id1;
+			String instructor_id2;
+			String course_id1;
+    		String course_id2;
+    		String status1;
+    		String status2;
+
+    		
+    		
+            for (int i = 0; i < requestList.size(); i++) {
+            	request1 = (JSONObject) requestList.get(i);
+            	course_id1 = (String) request1.get("course_id");
+            	for (int j = i; j < requestList.size(); j++) {
+            		request2 = (JSONObject) requestList.get(j);
+            		course_id2 = (String) request2.get("course_id");
+                	if (course_id1.equals(course_id2) && (i != j)) {
+                		instructor_id1 = (String) request1.get("instructor");
+                		instructor_id2 = (String) request2.get("instructor");
+                		status1 = (String) request1.get("status");
+                		status2 = (String) request2.get("status");
+                		if (instructor_id1.equals(instructor_id2) && status1.equals(status2)) {
+                			objects_to_delelete.add(request2);
+                		}
+                	}
+            	}
+            }
+            
+            for (JSONObject o : objects_to_delelete) {
+            	requestList.remove(o);
+            }
+            FileWriter file = new FileWriter("requesting.json");
+            
+            file.write(requestList.toJSONString());
+            file.flush();
+            
+            
+            
+            
+        }
+        catch (Exception e) {
+        	e.printStackTrace();
+        }
+	}
+	
+	
+	
+	
 	
 	public static void main(String[] args) {
 		Instructor aInstructor = new Instructor("7643541004");
+		//aInstructor.remove_duplicated_request();
 		aInstructor.run();
 		//Instructor.inititialize();
 	}
@@ -228,10 +356,8 @@ public class Instructor extends User{
 		
 		JSONObject aRequest = new JSONObject();
         aRequest.put("instructor", "7643541004");
-        ArrayList<String> requestingList = new ArrayList<>();
-        requestingList.add("91903");
-        requestingList.add("47326");
-        aRequest.put("course_id", requestingList.toString());
+        aRequest.put("course_id", "91903");
+        aRequest.put("status", "waiting");
          
 
         JSONArray request_total_list = new JSONArray();

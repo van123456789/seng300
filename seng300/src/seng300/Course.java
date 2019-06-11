@@ -34,6 +34,10 @@ public class Course {
 		this.enrolled_student = new ArrayList<String>();
 	}
 	
+	public Course(String id) {
+		course_id = id;
+	}
+	
 	public Course(String course_name, String aSession) {
 		coursename = course_name;
 		session = aSession;
@@ -81,6 +85,51 @@ public class Course {
 			e.printStackTrace();
 		}
 	}
+	
+	
+	public void fillout2() {
+		JSONParser jsonParser = new JSONParser();
+        
+        try (FileReader reader = new FileReader("test1.json"))
+        {
+            Object obj = jsonParser.parse(reader);
+            JSONArray courseList = (JSONArray) obj;
+            
+			JSONObject courseDetails=new JSONObject();
+            for (int i = 0; i < courseList.size(); i++) {
+            	courseDetails = (JSONObject) courseList.get(i);
+            	
+            	String id = (String) courseDetails.get("course_id");
+            	
+            	if (course_id.equals(id)) {
+            		String course_name = (String) courseDetails.get("coursename");
+            		String section = (String) courseDetails.get("section");
+            		String session = (String) courseDetails.get("session");
+            		String instructor = (String) courseDetails.get("instructor");
+            		ArrayList<String> enrolled_student = arrayConvert((String) courseDetails.get("enrolled_student"));
+            		this.enrolled_student = enrolled_student;
+            		this.coursename = course_name;
+            		this.session = session;
+            		this.section = section;
+            		this.instructor = instructor;
+            	}
+            	
+            	
+            	
+            }
+ 
+        } 
+        catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } 
+        catch (IOException e) {
+            e.printStackTrace();
+        } 
+        catch (org.json.simple.parser.ParseException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	private static void parseCourse(JSONObject course)
     {
@@ -319,7 +368,9 @@ public class Course {
 	
 	
 	public static void main(String[] args) throws Exception {
-		Course.reform();
+		Course aCourse = new Course("58347");
+		aCourse.fillout2();
+		aCourse.print_details();
 	}
 	
 	public static void reform() {

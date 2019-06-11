@@ -18,12 +18,12 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
+
 
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
-	ObjectMapper objmapper = new ObjectMapper();
+	
 	String id;
 	
 	// probably add string id as parameter, so i can get all the information i need when i start the class
@@ -366,6 +366,7 @@ public class Student extends User
 	
 	public static void main(String[] args) {
 		Student aStudent = new Student("1351891440");
+		
 	}
 
 }
