@@ -2,7 +2,6 @@ package seng300;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Scanner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -57,10 +56,8 @@ public class Registration
 		ArrayList<User> ulist = new ArrayList<User>();
 		
 		String id = "";
-//		String fn = "";
-//		String ln = "";
+		String password = "";
 		String name = "";
-
 		// file generation
 		try 
 		{
@@ -69,38 +66,32 @@ public class Registration
 				System.out.println("no users exists in the system yet");
 			else 
 				ulist = objmapper.readValue(temp,  new TypeReference<ArrayList<User>>() {});
+
 			
-/*			
 			// prompt user to create an id
 			System.out.println("id: ");
 			id = sc.nextLine();
-			System.out.println("firstname: ");
-			fn = sc.nextLine();
-			System.out.println("lastname: ");
-			ln = sc.nextLine();
-*/
-			// prompt user to create an id
-			System.out.println("id: ");
-			id = sc.nextLine();
+			System.out.println("password: ");
+			password = sc.nextLine();
 			System.out.println("name: ");
 			name = sc.nextLine();
 			
 			if (privilege.equals("1"))
 			{
-				HeadDepartment h = new HeadDepartment(id, privilege, name);
+				HeadDepartment h = new HeadDepartment(id, password, privilege, name);
 				ulist.add((User) h);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);
 			}	
 			if (privilege.equals("2"))
 			{
-				Instructor i = new Instructor(id, privilege, name);
+				Instructor i = new Instructor(id, password, privilege, name);
 				ulist.add((User) i);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);
 				
 			}	
 			if (privilege.equals("3"))
 			{
-				Student s = new Student(id, privilege, name);
+				Student s = new Student(id, password, privilege, name);
 				ulist.add((User) s);
 				objmapper.writerWithDefaultPrettyPrinter().writeValue(temp, ulist);				
 			}	

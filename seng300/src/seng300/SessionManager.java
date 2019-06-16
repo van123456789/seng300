@@ -50,7 +50,7 @@ public class SessionManager
 		}		
 		return ulist;
 	}
-
+		
 	/* for next three methods, 
 	 * can add check privilege of the user that is calling this function, 
 	 * however these calls are tied to the session

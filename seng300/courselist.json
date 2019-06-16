@@ -1,17 +1,22 @@
 [ {
-  "course_id" : "",
+  "course_id" : "23456",
   "coursename" : "CPSC 271",
   "instructor" : "",
-  "session" : "",
+  "session" : "Fall",
   "section" : "",
-  "enrolled_student" : [ ],
-  "s_name" : [ ]
+  "enrolled_student" : [ ]
 }, {
   "course_id" : "1234567",
   "coursename" : "CPSC 457",
-  "instructor" : "",
-  "session" : "",
+  "instructor" : "ins",
+  "session" : "Fall",
   "section" : "",
-  "enrolled_student" : [ ],
-  "s_name" : [ ]
+  "enrolled_student" : [ ]
+}, {
+  "course_id" : "91903",
+  "coursename" : "CPSC 471",
+  "instructor" : "ins",
+  "session" : "Fall",
+  "section" : "",
+  "enrolled_student" : [ ]
 } ]

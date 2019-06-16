@@ -1,41 +1,36 @@
 [ {
   "id" : "dh",
+  "password" : "dh",
   "privilege" : "1",
+  "name" : "dh",
   "teaching" : null,
-  "enrolled" : null,
-  "teaching2" : null,
-  "enrolled2" : null,
-  "name" : "dh"
+  "enrolled" : null
 }, {
-  "id" : "ins",
+  "id" : "7643541004",
+  "password" : "dh",
   "privilege" : "2",
-  "teaching" : null,
-  "enrolled" : null,
-  "teaching2" : [ "CPSC 457", "CPSC 457" ],
-  "enrolled2" : null,
-  "name" : "ins"
+  "name" : "ins",
+  "teaching" : [ {
+    "course_id" : "CPSC 457",
+    "coursename" : "",
+    "instructor" : "",
+    "session" : "",
+    "section" : "",
+    "enrolled_student" : null
+  }, {
+    "course_id" : "91903",
+    "coursename" : "CPSC 471",
+    "instructor" : "ins",
+    "session" : "Fall",
+    "section" : "",
+    "enrolled_student" : [ ]
+  } ],
+  "enrolled" : null
 }, {
   "id" : "s0",
+  "password" : "dh",
   "privilege" : "3",
+  "name" : "s0",
   "teaching" : null,
-  "enrolled" : null,
-  "teaching2" : null,
-  "enrolled2" : [ ],
-  "name" : "ins"
-}, {
-  "id" : "s1",
-  "privilege" : "3",
-  "teaching" : null,
-  "enrolled" : null,
-  "teaching2" : null,
-  "enrolled2" : [ ],
-  "name" : "ins"
-}, {
-  "id" : "s2",
-  "privilege" : "3",
-  "teaching" : null,
-  "enrolled" : null,
-  "teaching2" : null,
-  "enrolled2" : [ ],
-  "name" : "ins"
+  "enrolled" : [ ]
 } ]
