@@ -1,10 +1,8 @@
 package seng300;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Login 
@@ -29,11 +27,13 @@ public class Login
 			// simple authentication using username
 			// TODO implement password authentication
 			System.out.print("username: ");
-			String id = sc.nextLine();			
+			String id = sc.nextLine();
+			System.out.print("password: ");
+			String pw = sc.nextLine();
 			for (User u : userlist)
 			{
 //				System.out.println(u.getId().equals(id));
-				if (u.getId().equals(id))
+				if (u.getId().equals(id) && u.getPassword().equals(pw))
 				{
 					if (u.getPrivilege().equals("1"))
 						new HeadDepartment(id);			// create a new session for the department head level user
