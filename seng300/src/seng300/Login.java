@@ -53,4 +53,25 @@ public class Login
 		}				
 	}
 	
+	public boolean check_credential(String id, String pw)
+	{
+		boolean authenticated = false;
+		try 
+		{			
+			userlist = sm.getUserList("userlist.json");
+			
+			// simple authentication using username
+			// TODO implement password authentication
+			for (User u : userlist)
+			{
+				if (u.getId().equals(id) && u.getPassword().equals(pw))
+					authenticated = true;
+			}
+		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		return authenticated;
+	}	
 }
