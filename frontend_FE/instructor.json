@@ -1,0 +1,58 @@
+{
+  "Instructor": [
+    {
+      "id": "1000001",
+      "name": "Thi Dinh",
+      "course_t": "MATH 271"
+
+    },
+    {
+      "id":"1000002",
+      "name":"Ryan Hamilton",
+      "course_t":"MATH 265"
+
+    },
+    {
+      "id":"1000003",
+      "name":"Lauren DeDieu",
+      "course_t":"MATH 267"
+
+    },
+    {
+      "id":"1000004",
+      "name":"Pavol Federl",
+      "course_t":"CPSC 231"
+
+    },
+    {
+      "id":"1000005",
+      "name":"Nathaly Verwaal",
+      "course_t":"CPSC 233"
+    },
+    {
+      "id":"1000006",
+      "name":"Tamer Jarada",
+      "course_t":"CPSC 355"
+      },
+    {
+      "id":"1000007",
+      "name":"Jalal Kawash",
+      "course_t":"CPSC 359"
+    },
+    {
+      "id":"1000008",
+      "name":"Jonathan Hudson",
+      "course_t":"CPSC 413"
+    },
+    {
+      "id":"1000009",
+      "name":"Arkady Eidelberg",
+      "course_t":"CPSC 441"
+    },
+    {
+      "id":"1000010",
+      "name":"Sohaib Bajwa",
+      "course_t":"CPSC 449"
+    }
+  ]
+}

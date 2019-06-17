@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        @import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+        html {}
+
+        h1{
+            text-align: center;
+            font-size: 50px;
+        }
+
+        #feedback-page {
+            text-align: center;
+        }
+
+        #form-main {
+            width: 100%;
+            float: left;
+            padding-top: 0px;
+        }
+
+        #form-div {
+            background-color: rgba(72, 72, 72, 0.4);
+            padding-left: 35px;
+            padding-right: 35px;
+            padding-top: 35px;
+            padding-bottom: 50px;
+            width: 450px;
+            float: left;
+            left: 50%;
+            position: absolute;
+            margin-top: 30px;
+            margin-left: -260px;
+            -moz-border-radius: 7px;
+            -webkit-border-radius: 7px;
+        }
+
+        .feedback-input {
+            color: #A30026;
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: 500;
+            font-size: 18px;
+            border-radius: 0;
+            line-height: 22px;
+            background-color: #fbfbfb;
+            padding: 13px 13px 13px 54px;
+            margin-bottom: 10px;
+            width: 100%;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            -ms-box-sizing: border-box;
+            box-sizing: border-box;
+            border: 3px solid rgba(0, 0, 0, 0);
+        }
+
+        .feedback-input:focus {
+            background: #fff;
+            box-shadow: 5px 5px;
+            border: 3px solid #A30026;
+            color: #A30026;
+            outline: none;
+            padding: 13px 13px 13px 54px;
+        }
+
+        .focused {
+            color: #A30026;
+            border: #A30026 solid 3px;
+        }
+
+
+        /* Icons ---------------------------------- */
+
+        #name {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier1/table-of-contents.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #name:focus {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier1/table-of-contents.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 8px 5px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #instructor {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/profile-default.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #instructor:focus {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/profile-default.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+        #courseID {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/chevron-right.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #courseID:focus {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/chevron-right.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+        #session {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/calendar.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #session:focus {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/calendar.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #section {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/file-presentation.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #section:focus {
+            background-image: url(https://raw.githubusercontent.com/BrightspaceUI/icons/master/images/tier2/file-presentation.svg?sanitize=true);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #userID {
+            background-image: url(http://siteassets.pagecloud.com/businesslawadvice/images/organization-ID-708bed03-120b-424f-8f7f-5b1c701dc552.svg?nocache=c675d288-df91-44ea-8eaf-1f903d130f28);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #userID:focus {
+            background-image: url(http://siteassets.pagecloud.com/businesslawadvice/images/organization-ID-708bed03-120b-424f-8f7f-5b1c701dc552.svg?nocache=c675d288-df91-44ea-8eaf-1f903d130f28);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        #comment {
+            background-image: url(http://rexkirby.com/kirbyandson/images/comment.svg);
+            background-size: 30px 30px;
+            background-position: 11px 8px;
+            background-repeat: no-repeat;
+        }
+
+        textarea {
+            width: 300px;
+            height: 150px;
+            line-height: 150%;
+            resize: horizontal;
+        }
+        input:hover,
+        textarea:hover,
+        input:focus,
+        textarea:focus {
+            background-color: white;
+        }
+        #button-blue {
+            font-family: 'Montserrat', Arial, Helvetica, sans-serif;
+            float: left;
+            width: 100%;
+            border: #A30026 solid 4px;
+            cursor: pointer;
+            background-color: #A30026;
+            color: white;
+            font-size: 24px;
+            padding-top: 22px;
+            padding-bottom: 22px;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+            margin-top: -4px;
+            font-weight: 700;
+        }
+        #button-blue:hover {
+            background-color: rgba(0, 0, 0, 0);
+            color: #A30026;
+        }
+        .submit:hover {
+            color: #A30026;
+        }
+        .ease {
+            width: 0px;
+            height: 74px;
+            background-color: #A30026;
+            -webkit-transition: .3s ease;
+            -moz-transition: .3s ease;
+            -o-transition: .3s ease;
+            -ms-transition: .3s ease;
+            transition: .3s ease;
+        }
+        .submit:hover .ease {
+            width: 100%;
+            background-color: white;
+        }
+        @media only screen and (max-width: 580px) {
+            #form-div {
+                left: 3%;
+                margin-right: 3%;
+                width: 88%;
+                margin-left: 0;
+                padding-left: 3%;
+                padding-right: 3%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h1>Request New Course</h1>
+</div>
+<div id="form-main">
+    <div id="form-div">
+        <form  action="MAILTO:xxx@ucalgary.com?subject=Add Course to Course List" method="post" enctype="text/plain" class="form" id="form1">
+
+            <p class="courseID">
+                <input name="courseID" type="text" class=" feedback-input" id="courseID" placeholder="Course ID" value=""/>
+            </p>
+
+            <p class="name">
+                <input name="name" type="text" class=" feedback-input" placeholder="Course Name" id="name" value="" />
+            </p>
+
+            <p class="instructor">
+                <input name="instructor" type="text" class=" feedback-input" id="instructor" placeholder="Instructor Name" value=""/>
+            </p>
+
+
+            <p class="userID">
+                <input name="userID" type="text" class=" feedback-input" id="userID" placeholder="Instructor ID" value=""/>
+            </p>
+
+
+            <div class="submit">
+                <input type="submit" value="Add" id="button-blue" />
+                <div class="ease"></div>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html></html>

@@ -1,0 +1,84 @@
+{
+  "Course": [
+    {
+      "courseid": "58347",
+      "name": "MATH 271",
+      "instructor": "Thi Dinh",
+      "session": "Spring 2019",
+      "section": "01",
+      "description": "Discrete Mathematics"
+    },
+    {
+      "courseid":"54585",
+      "name":"MATH 265",
+      "instructor":"Ryan Hamilton",
+      "session":"Spring 2018",
+      "section":"01",
+      "description": "University Calculus I"
+    },
+    {
+      "courseid":"891",
+      "name":"MATH 267",
+      "instructor":"Lauren DeDieu",
+      "session":"Summer 2019",
+      "section":"01",
+      "description": "University Calculus II"
+    },
+    {
+      "courseid":"31817",
+      "name":"CPSC 231",
+      "instructor":"Pavol Federl",
+      "session":"Fall 2018",
+      "section":"01",
+      "description": "Introduction to Computer Science for Computer Science Majors I"
+    },
+    {
+      "courseid":"91915",
+      "name":"CPSC 233",
+      "instructor":"Nathaly Verwaal",
+      "session":"Fall 2019",
+      "section":"01",
+      "description": "Introduction to Computer Science for Computer Science Majors II"
+    },
+    {
+      "courseid":"43506",
+      "name":"CPSC 355",
+      "instructor":"Tamer Jarada",
+      "session":"Spring 2019",
+      "section":"01",
+      "description": "Computing Machinery I"
+    },
+    {
+      "courseid":"83163",
+      "name":"CPSC 359",
+      "instructor":"Jalal Kawash",
+      "session":"Spring 2019",
+      "section":"01",
+      "description": "Computing Machinery II"
+    },
+    {
+      "courseid":"27101",
+      "name":"CPSC 413",
+      "instructor":"Jonathan Hudson",
+      "session":"Spring 2019",
+      "section":"01",
+      "description": "Design and Analysis of Algorithms I"
+    },
+    {
+      "courseid":"23633",
+      "name":"CPSC 441",
+      "instructor":"Arkady Eidelberg",
+      "session":"Spring 2019",
+      "section":"01",
+      "description": "Computer Networks"
+    },
+    {
+      "courseid":"84245",
+      "name":"CPSC 449",
+      "instructor":"Sohaib Bajwa",
+      "session":"Spring 2019",
+      "section":"01",
+      "description": "Programming Paradigms"
+    }
+  ]
+}

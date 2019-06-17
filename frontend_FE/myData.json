@@ -1,0 +1,49 @@
+{
+  "Student": [
+    {
+      "uname": "George Washington",
+      "psw": "1789",
+      "uid": "0000001",
+      "course1": "MATH 271",
+      "course2": "CPSC 231",
+      "course3": "CPSC 359",
+      "course4": "CPSC 449"
+    },
+    {
+      "uname": "John Adams",
+      "psw": "1797",
+      "uid": "0000002",
+      "course1": "MATH 265",
+      "course2": "CPSC 413",
+      "course3": "CPSC 441",
+      "course4": "CPSC 449"
+    },
+    {
+      "uname": "Thomas Jefferson",
+      "psw": "1801",
+      "uid": "0000003",
+      "course1": "MATH 267",
+      "course2": "CPSC 355",
+      "course3": "CPSC 359",
+      "course4": "CPSC 441"
+    },
+    {
+      "uname": "James Madison",
+      "psw": "1809",
+      "uid": "0000004",
+      "course1": "MATH 267",
+      "course2": "CPSC 231",
+      "course3": "CPSC 355",
+      "course4": "CPSC 441"
+    },
+    {
+      "uname": "James Monroe",
+      "psw": "1817",
+      "uid": "0000005",
+      "course1": "MATH 271",
+      "course2": "CPSC 233",
+      "course3": "CPSC 359",
+      "course4": "CPSC 449"
+    }
+  ]
+}
