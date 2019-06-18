@@ -18,7 +18,11 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 
-
+/**
+ * constructor for instructor
+ * @author Van
+ *
+ */
 public class Instructor extends User{
 	private String aSession;
 
@@ -34,7 +38,9 @@ public class Instructor extends User{
 	public Instructor (String id) {
 		super.id = id;
 	}
-	
+	/**
+	 * main interaction with the system
+	 */
 	public void run() {		
 		boolean stillOn = true;
 		while (stillOn) {
@@ -68,7 +74,9 @@ public class Instructor extends User{
 			}		
 		}
 	}
-	
+	/**
+	 * request course from user
+	 */
 	public void requestcourse() {
 		System.out.println("Please enter the term you want to request to teach");
 		Scanner myScanner = new Scanner(System.in);
@@ -93,7 +101,10 @@ public class Instructor extends User{
 		
 	}
 	
-	
+	/**
+	 * helper for getting course
+	 * @param aSession
+	 */
 	public void get_request(String aSession) {
 		boolean isFinished = false;
 		Scanner myScanner = new Scanner(System.in);
@@ -173,7 +184,11 @@ public class Instructor extends User{
 	}
 	
 	
-	
+	/**
+	 * add the course_id to list of waiting for approval
+	 * remove duplicated at the end
+	 * @param requesting_courses
+	 */
 	public void send_request(List<String> requesting_courses) {
 		
 		JSONParser jsonParser = new JSONParser();
@@ -211,11 +226,18 @@ public class Instructor extends User{
 		
 		
 	}
-	
+	/**
+	 * testing purpose
+	 * @param aSession
+	 */
 	public void print_unassigned_courses(String aSession) {
 		System.out.println(this.getUnassigned_courses(aSession));
 	}
-	
+	/**
+	 * return courses that was not assigned to any instructor
+	 * @param aSession
+	 * @return
+	 */
 	public List<String> getUnassigned_courses(String aSession){
 		ArrayList<String> result = new ArrayList<>();
 		JSONParser jsonParser = new JSONParser();
@@ -250,7 +272,9 @@ public class Instructor extends User{
 	
 	}
 		
-	
+	/**
+	 * print course and its status
+	 */
 	public void reviewrequest() {
 		JSONParser jsonParser = new JSONParser();
         
@@ -283,7 +307,9 @@ public class Instructor extends User{
         }
 	}
 	
-	
+	/**
+	 * remove duplicated request
+	 */
 	private void remove_duplicated_request() {
 		JSONParser jsonParser = new JSONParser();
         
@@ -343,14 +369,19 @@ public class Instructor extends User{
 	
 	
 	
-	
+	/**
+	 * main for testing class purpose
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Instructor aInstructor = new Instructor("7643541004");
 		//aInstructor.remove_duplicated_request();
 		aInstructor.run();
 		//Instructor.inititialize();
 	}
-	
+	/**
+	 * pop an standard example, for testing purpose only
+	 */
 	public static void inititialize() {
 		
 		

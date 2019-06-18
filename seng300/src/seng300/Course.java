@@ -14,6 +14,12 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+
+/**
+ * constructor for course
+ * @author Van
+ *
+ */
 public class Course {
 	protected String course_id = "";
 	protected String coursename = "";
@@ -43,6 +49,10 @@ public class Course {
 		session = aSession;
 	}
 	
+	
+	/**
+	 * fillout all info when given course name and term
+	 */
 	public void fillout1() {
 		JSONParser jsonParser = new JSONParser();
         
@@ -86,7 +96,9 @@ public class Course {
 		}
 	}
 	
-	
+	/**
+	 * fillout info when given course_id
+	 */
 	public void fillout2() {
 		JSONParser jsonParser = new JSONParser();
         
@@ -130,7 +142,10 @@ public class Course {
 		}
 	}
 	
-	
+	/**
+	 * for testing purpose
+	 * @param course
+	 */
 	private static void parseCourse(JSONObject course)
     {
         
@@ -160,7 +175,11 @@ public class Course {
       
     }
 	
-	
+	/**
+	 * helper parsing json file
+	 * @param aList
+	 * @return
+	 */
 	public static ArrayList<String> arrayConvert(String aList){
 		ArrayList<String> result = new ArrayList<>();
 		String newList = aList.substring(1, aList.length()-1);
@@ -212,7 +231,9 @@ public class Course {
 	public String toString() {
 		return this.coursename;
 	}
-	
+	/**
+	 * testing purpose
+	 */
 	public void print_details() {
 		System.out.println(this.getCourse_id());
 		System.out.println(this.getCoursename());
@@ -222,6 +243,11 @@ public class Course {
 		System.out.println(this.getEnrolled_student());
 	}
 	
+	
+	/**
+	 * add student to the course
+	 * @param id
+	 */
 	public void add_student(String id) {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> result = new ArrayList<>();
@@ -258,7 +284,11 @@ public class Course {
         }
 
 	}
-	
+	/**
+	 * helper to parse array to json
+	 * @param list
+	 * @return
+	 */
 	private JSONArray arraytojson(ArrayList<String> list) {
 		JSONArray result = new JSONArray();
 		for (String s : list) {
@@ -266,7 +296,10 @@ public class Course {
 		}
 		return result;
 	}
-	
+	/**
+	 * get every student_id enrolled in the course
+	 * @return list of student_Id
+	 */
 	private ArrayList<String> getEnrolled_from_database() {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> result = new ArrayList<>();
@@ -298,7 +331,11 @@ public class Course {
 	}
         
 
-	
+	/**
+	 * check if a session is a valid session or not
+	 * @param aSession
+	 * @return
+	 */
 	public static boolean isValidSession(String aSession) {
 		JSONParser jsonParser = new JSONParser();
 		boolean result = false;
@@ -333,6 +370,11 @@ public class Course {
         return result;
 	}
 
+	
+	/**
+	 * helper to drop course and edit json file
+	 * @param id
+	 */
 	public void remove_from_database(String id) {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList<String> result = new ArrayList<>();
@@ -366,13 +408,19 @@ public class Course {
         }
 	}
 	
-	
+	/**
+	 * this is for testing purpose
+	 * @param args
+	 * @throws Exception
+	 */
 	public static void main(String[] args) throws Exception {
 		Course aCourse = new Course("58347");
 		aCourse.fillout2();
 		aCourse.print_details();
 	}
-	
+	/**
+	 * this is for reforming the json file
+	 */
 	public static void reform() {
 		JSONParser jsonParser = new JSONParser();
         

@@ -19,7 +19,11 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 
-
+/**
+ * Student class
+ * @author Van
+ *
+ */
 public class Student extends User
 {
 	Scanner sc = new Scanner(System.in);
@@ -33,7 +37,13 @@ public class Student extends User
 		run(id);
 	}
 	
-	
+	/**
+	 * constructors
+	 * @param id
+	 * @param privilege
+	 * @param fn
+	 * @param ln
+	 */
 	public Student (String id, String privilege, String fn, String ln)
 	{
 		this.id = id;
@@ -52,7 +62,10 @@ public class Student extends User
 		this.enrolled = enrolled;
 	}
 
-
+	/**
+	 * main interaction
+	 * @param id
+	 */
 	public void run(String id) 
 	{
 		boolean stillOn = true;
@@ -84,7 +97,7 @@ public class Student extends User
 					break;
 
 				case "4":
-					drop_past_term();
+					drop_future_term();
 					break;
 
 				case "5":
@@ -98,7 +111,10 @@ public class Student extends User
 		}
 			
 	}
-	
+	/**
+	 * register courses for a given term
+	 * @param aSession
+	 */
 	public void register_courses_for_term(String aSession) 
 	{
 
@@ -112,7 +128,10 @@ public class Student extends User
 		print_course_load(aSession);
 
 	}
-	
+	/**
+	 * print out all courses in that term
+	 * @param aSession
+	 */
 	public void print_available_courses(String aSession) {
 		JSONParser jsonParser = new JSONParser();
 		ArrayList <String> courseload = new ArrayList<>();
@@ -141,7 +160,11 @@ public class Student extends User
         
         System.out.println(courseload);
 	}
-	
+	/**
+	 * enrol students into courses
+	 * @param courses_to_enrol
+	 * @param aSession
+	 */
 	public void register_courses(List<Course> courses_to_enrol, String aSession) {
 		boolean notFinishedAdding = true;
 		int state = 0;
@@ -211,7 +234,9 @@ public class Student extends User
 		
 		
 	}
-	
+	/**
+	 * get the term that student wants
+	 */
 	public void register_future_term() {
 
 		System.out.println("Please enter term you want to register in:");
@@ -220,7 +245,10 @@ public class Student extends User
 			register_courses_for_term(aSession);
 		}
 	}
-	
+	/**
+	 * drop courses for the given terms
+	 * @param aSession
+	 */
 	public void drop_term(String aSession) {
 		List<Course> courses_to_drop = new ArrayList<>();
 		System.out.println("These are courses you signed up: ");
@@ -232,7 +260,11 @@ public class Student extends User
 		
 		
 	}
-	
+	/**
+	 * get courses to drop and remove the student id from the course list
+	 * @param courses_to_drop
+	 * @param aSession
+	 */
 	public void drop_courses(List<Course> courses_to_drop, String aSession) {
 		boolean notFinishedDropping = true;
 		int state = 0;
@@ -298,7 +330,10 @@ public class Student extends User
 		}
 	}
 	
-	
+	/**
+	 * remove from database
+	 * @param courses_to_drop
+	 */
 	public void remove_from_database(List<Course> courses_to_drop) {
 		for (Course c : courses_to_drop) {
 			c.remove_from_database(id);
@@ -306,8 +341,10 @@ public class Student extends User
 		System.out.println("removed successfully");
 	}
 	
-
-	public void drop_past_term() 
+	/**
+	 * drop future term courses
+	 */
+	public void drop_future_term() 
 	{
 		System.out.println("Enter term you want to drop:");
 		Scanner myScanner = new Scanner(System.in);
@@ -324,7 +361,10 @@ public class Student extends User
 		}
 	}
 	
-	
+	/**
+	 * add student id to database of courses the student wants to be in
+	 * @param courses_to_enrol
+	 */
 	public void add_to_database(List<Course> courses_to_enrol) {
 		for (Course c : courses_to_enrol) {
 			c.add_student(id);
@@ -332,7 +372,10 @@ public class Student extends User
 		System.out.println("Added successfully");
 			
 	}
-	
+	/**
+	 * print courses that the student is in that term
+	 * @param aSession
+	 */
 	public void print_course_load(String aSession) {
 		
 		JSONParser jsonParser = new JSONParser();
@@ -367,7 +410,10 @@ public class Student extends User
 
 
 	
-	
+	/**
+	 * for testing purpose only
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		Student aStudent = new Student("1351891440");
 		
