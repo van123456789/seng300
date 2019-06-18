@@ -57,6 +57,8 @@ public class Student extends User
 	{
 		boolean stillOn = true;
 		while (stillOn) {
+
+			System.out.println("----------------------------------------");
 			System.out.println("Please select your option:");
 			System.out.println("1 - to register courses for this session");
 			System.out.println("2 - to register courses for future session");
@@ -106,6 +108,8 @@ public class Student extends User
 		System.out.println("Theses are courses available for this term: ");
 		print_available_courses(aSession);
 		register_courses(courses_to_enrol, aSession);
+		System.out.println("These are courses you signed up");
+		print_course_load(aSession);
 
 	}
 	

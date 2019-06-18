@@ -5,4 +5,11 @@
   "session" : "",
   "section" : "",
   "enrolled_student" : [ ]
+}, {
+  "course_id" : "CPSC 231",
+  "coursename" : "CPSC 231",
+  "instructor" : "Nathaly",
+  "session" : "1",
+  "section" : "1",
+  "enrolled_student" : [ ]
 } ]
